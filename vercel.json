@@ -20,5 +20,8 @@
   },
   "env": {
     "RESEND_API_KEY": "@resend_api_key"
-  }
+  },
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "framework": "vite"
 } 

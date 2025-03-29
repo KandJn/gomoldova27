@@ -155,7 +155,10 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
           <div className="mt-8 text-center">
             <button
-              onClick={() => setIsLogin(!isLogin)}
+              onClick={() => {
+                onClose();
+                navigate('/register/email');
+              }}
               className="text-base text-blue-600 hover:text-blue-700"
             >
               {isLogin ? t('auth.noAccount') : t('auth.haveAccount')}

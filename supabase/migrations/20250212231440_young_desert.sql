@@ -1,0 +1,12 @@
+\n\n-- Drop existing problematic policy\nDROP POLICY IF EXISTS "Users can create bookings" ON bookings;
+\n\n-- Create new non-recursive policy for bookings\nCREATE POLICY "Users can create bookings"\n  ON bookings FOR INSERT\n  TO authenticated\n  WITH CHECK (\n    auth.uid() = user_id AND\n    EXISTS (\n      SELECT 1\n      FROM trips t\n      LEFT JOIN (\n        SELECT trip_id, COUNT(*) as accepted_count\n        FROM bookings\n        WHERE status = 'accepted'\n        GROUP BY trip_id\n      ) b ON b.trip_id = t.id\n      WHERE t.id = trip_id\n      AND (t.seats > COALESCE(b.accepted_count, 0))\n    )\n  );
+\n\n-- Add missing indexes for better performance\nCREATE INDEX IF NOT EXISTS idx_bookings_trip_status ON bookings(trip_id, status);
+\nCREATE INDEX IF NOT EXISTS idx_bookings_user_status ON bookings(user_id, status);
+\n\n-- Update notification trigger to be more efficient\nCREATE OR REPLACE FUNCTION notify_driver_on_booking()\nRETURNS TRIGGER AS $$\nBEGIN\n  INSERT INTO notifications (user_id, type, content)\n  SELECT \n    t.driver_id,\n    'booking_request',\n    jsonb_build_object(\n      'booking_id', NEW.id,\n      'trip_id', NEW.trip_id,\n      'passenger_id', NEW.user_id\n    )\n  FROM trips t\n  WHERE t.id = NEW.trip_id;
+\n  RETURN NEW;
+\nEND;
+\n$$ LANGUAGE plpgsql SECURITY DEFINER;
+\n\n-- Ensure trigger exists\nDROP TRIGGER IF EXISTS on_booking_created ON bookings;
+\nCREATE TRIGGER on_booking_created\n  AFTER INSERT ON bookings\n  FOR EACH ROW\n  EXECUTE FUNCTION notify_driver_on_booking();
+\n\n-- Add policy for drivers to manage bookings\nCREATE POLICY "Drivers can manage bookings"\n  ON bookings FOR UPDATE\n  TO authenticated\n  USING (\n    EXISTS (\n      SELECT 1 FROM trips\n      WHERE id = trip_id\n      AND driver_id = auth.uid()\n    )\n  )\n  WITH CHECK (\n    status IN ('accepted', 'rejected', 'cancelled')\n  );
+;

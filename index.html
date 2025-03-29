@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Development CSP - More permissive for debugging -->
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: blob:; script-src * 'self' 'unsafe-inline' 'unsafe-eval'; connect-src * 'self' 'unsafe-inline'; img-src * 'self' data: blob:; frame-src * 'self'; style-src * 'self' 'unsafe-inline';" />
+    <!-- Production CSP - Uncomment for production
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://maps.googleapis.com https://*.googleapis.com https://*.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: https://*.googleapis.com https://*.gstatic.com https://ui-avatars.com; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.googleapis.com https://*.gstatic.com; font-src 'self' https://fonts.gstatic.com; frame-src 'self'; worker-src 'self' blob:; manifest-src 'self'; media-src 'self'; object-src 'none';" />
+    -->
+    <title>GoMoldova - Călătorii Sigure în Moldova</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA2uebsm6mBu7q3b4gDbr_gYkd-U2kzL1o&libraries=places"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -1,0 +1,12 @@
+-- Drop existing materialized view if it exists\nDROP MATERIALIZED VIEW IF EXISTS available_seats;
+\n\n-- Create new materialized view with proper permissions\nCREATE MATERIALIZED VIEW available_seats AS\nSELECT \n  t.id as trip_id,\n  t.seats as total_seats,\n  COALESCE(COUNT(b.id) FILTER (WHERE b.status = 'accepted'), 0) as booked_seats,\n  t.seats - COALESCE(COUNT(b.id) FILTER (WHERE b.status = 'accepted'), 0) as seats_left\nFROM trips t\nLEFT JOIN bookings b ON b.trip_id = t.id\nGROUP BY t.id, t.seats;
+\n\n-- Grant proper permissions\nGRANT SELECT ON available_seats TO anon, authenticated;
+\nGRANT ALL ON available_seats TO authenticated;
+\n\n-- Create function to refresh available seats\nCREATE OR REPLACE FUNCTION refresh_available_seats()\nRETURNS trigger AS $$\nBEGIN\n  REFRESH MATERIALIZED VIEW CONCURRENTLY available_seats;
+\n  RETURN NULL;
+\nEND;
+\n$$ LANGUAGE plpgsql SECURITY DEFINER;
+\n\n-- Create trigger to refresh available seats\nDROP TRIGGER IF EXISTS refresh_available_seats_trigger ON bookings;
+\nCREATE TRIGGER refresh_available_seats_trigger\n  AFTER INSERT OR UPDATE OR DELETE ON bookings\n  FOR EACH STATEMENT\n  EXECUTE FUNCTION refresh_available_seats();
+\n\n-- Refresh the view\nREFRESH MATERIALIZED VIEW available_seats;
+;

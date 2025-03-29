@@ -1,0 +1,11 @@
+-- Drop existing policies and tables\nDROP POLICY IF EXISTS "Admin can manage all verifications" ON verifications;
+\nDROP TABLE IF EXISTS admin_users CASCADE;
+\nDROP FUNCTION IF EXISTS is_admin CASCADE;
+\nDROP FUNCTION IF EXISTS get_admin_role CASCADE;
+\n\n-- Create function to check if user is admin\nCREATE OR REPLACE FUNCTION get_admin_role()\nRETURNS text AS $$\nBEGIN\n  IF auth.email() = 'asassin.damian@gmail.com' THEN\n    RETURN 'admin';
+\n  END IF;
+\n  RETURN NULL;
+\nEND;
+\n$$ LANGUAGE plpgsql SECURITY DEFINER;
+\n\n-- Create policy for admin access to verifications\nCREATE POLICY "Admin can manage verifications"\nON verifications FOR ALL\nTO authenticated\nUSING (\n  auth.email() = 'asassin.damian@gmail.com'\n);
+;

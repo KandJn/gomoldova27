@@ -1,0 +1,18 @@
+-- Drop existing problematic policies\nDROP POLICY IF EXISTS "allow_booking_creation" ON bookings;
+\nDROP POLICY IF EXISTS "allow_booking_viewing" ON bookings;
+\nDROP POLICY IF EXISTS "allow_booking_updates" ON bookings;
+\n\n-- Create helper function for counting accepted bookings\nCREATE OR REPLACE FUNCTION get_booking_count(trip_id bigint)\nRETURNS bigint AS $$\n  SELECT COUNT(*)\n  FROM bookings\n  WHERE trip_id = $1 AND status = 'accepted';
+\n$$ LANGUAGE sql STABLE;
+\n\n-- Create new non-recursive booking policies\nCREATE POLICY "bookings_create"\n  ON bookings FOR INSERT\n  TO authenticated\n  WITH CHECK (\n    -- User must be authenticated and not the driver\n    auth.uid() = user_id AND\n    EXISTS (\n      SELECT 1 \n      FROM trips t\n      WHERE t.id = trip_id\n      AND t.driver_id != auth.uid()\n      AND t.seats > get_booking_count(t.id)\n    )\n  );
+\n\nCREATE POLICY "bookings_view"\n  ON bookings FOR SELECT\n  TO authenticated\n  USING (\n    -- Users can see their own bookings or bookings for trips they drive\n    auth.uid() = user_id OR\n    EXISTS (\n      SELECT 1 \n      FROM trips t\n      WHERE t.id = trip_id \n      AND t.driver_id = auth.uid()\n    )\n  );
+\n\nCREATE POLICY "bookings_update"\n  ON bookings FOR UPDATE\n  TO authenticated\n  USING (\n    -- Only drivers can update bookings for their trips\n    EXISTS (\n      SELECT 1 \n      FROM trips t\n      WHERE t.id = trip_id \n      AND t.driver_id = auth.uid()\n    )\n  )\n  WITH CHECK (\n    -- Only allow valid status values\n    status IN ('accepted', 'rejected', 'cancelled')\n  );
+\n\n-- Create function to notify passenger on booking status change\nCREATE OR REPLACE FUNCTION notify_passenger_on_booking_status()\nRETURNS trigger AS $$\nBEGIN\n  IF NEW.status != OLD.status THEN\n    INSERT INTO notifications (\n      user_id,\n      type,\n      content\n    )\n    VALUES (\n      NEW.user_id,\n      CASE \n        WHEN NEW.status = 'accepted' THEN 'booking_accepted'\n        WHEN NEW.status = 'rejected' THEN 'booking_rejected'\n        ELSE 'booking_' || NEW.status\n      END,\n      jsonb_build_object(\n        'booking_id', NEW.id,\n        'trip_id', NEW.trip_id,\n        'driver_id', (SELECT driver_id FROM trips WHERE id = NEW.trip_id)\n      )\n    );
+\n  END IF;
+\n  RETURN NEW;
+\nEND;
+\n$$ LANGUAGE plpgsql SECURITY DEFINER;
+\n\n-- Create trigger for booking status notifications\nDROP TRIGGER IF EXISTS on_booking_status_changed ON bookings;
+\nCREATE TRIGGER on_booking_status_changed\n  AFTER UPDATE OF status ON bookings\n  FOR EACH ROW\n  EXECUTE FUNCTION notify_passenger_on_booking_status();
+\n\n-- Add indexes for better performance\nCREATE INDEX IF NOT EXISTS idx_bookings_trip_status ON bookings(trip_id, status);
+\nCREATE INDEX IF NOT EXISTS idx_bookings_user_status ON bookings(user_id, status);
+;

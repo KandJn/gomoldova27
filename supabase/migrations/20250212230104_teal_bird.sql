@@ -1,0 +1,12 @@
+\n\n-- Add new columns for detailed addresses and coordinates if they don't exist\nDO $$ \nBEGIN\n  IF NOT EXISTS (\n    SELECT 1 FROM information_schema.columns \n    WHERE table_name = 'trips' AND column_name = 'from_address'\n  ) THEN\n    ALTER TABLE trips ADD COLUMN from_address text;
+\n  END IF;
+\n\n  IF NOT EXISTS (\n    SELECT 1 FROM information_schema.columns \n    WHERE table_name = 'trips' AND column_name = 'to_address'\n  ) THEN\n    ALTER TABLE trips ADD COLUMN to_address text;
+\n  END IF;
+\n\n  IF NOT EXISTS (\n    SELECT 1 FROM information_schema.columns \n    WHERE table_name = 'trips' AND column_name = 'from_coordinates'\n  ) THEN\n    ALTER TABLE trips ADD COLUMN from_coordinates point;
+\n  END IF;
+\n\n  IF NOT EXISTS (\n    SELECT 1 FROM information_schema.columns \n    WHERE table_name = 'trips' AND column_name = 'to_coordinates'\n  ) THEN\n    ALTER TABLE trips ADD COLUMN to_coordinates point;
+\n  END IF;
+\nEND $$;
+\n\n-- Drop existing policy if it exists\nDROP POLICY IF EXISTS "Drivers can see full addresses" ON trips;
+\n\n-- Create new policy for address visibility\nCREATE POLICY "Drivers can see full addresses"\n  ON trips FOR SELECT\n  TO authenticated\n  USING (\n    driver_id = auth.uid() OR\n    (CASE \n      WHEN driver_id != auth.uid() \n      THEN from_address IS NULL AND to_address IS NULL\n      ELSE true\n    END)\n  );
+;

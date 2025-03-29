@@ -1,0 +1,5 @@
+\n\n-- Create storage bucket\nINSERT INTO storage.buckets (id, name, public)\nVALUES ('id-verifications', 'id-verifications', false)\nON CONFLICT (id) DO NOTHING;
+\n\n-- Create policy to allow authenticated users to upload to their own folder\nCREATE POLICY "Users can upload their own ID verification documents"\nON storage.objects FOR INSERT TO authenticated\nWITH CHECK (\n  bucket_id = 'id-verifications' AND\n  auth.uid()::text = (storage.foldername(name))[1]\n);
+\n\n-- Create policy to allow users to read their own files\nCREATE POLICY "Users can read their own ID verification documents"\nON storage.objects FOR SELECT TO authenticated\nUSING (\n  bucket_id = 'id-verifications' AND\n  auth.uid()::text = (storage.foldername(name))[1]\n);
+\n\n-- Create policy to allow users to delete their own files\nCREATE POLICY "Users can delete their own ID verification documents"\nON storage.objects FOR DELETE TO authenticated\nUSING (\n  bucket_id = 'id-verifications' AND\n  auth.uid()::text = (storage.foldername(name))[1]\n);
+;

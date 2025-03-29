@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Email Function</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    button {
+      background-color: #4A7CFA;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    #result {
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      display: none;
+    }
+    .success {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .error {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+  </style>
+</head>
+<body>
+  <h1>Test Email Function</h1>
+  <p>Use this form to test the Netlify email function</p>
+  
+  <form id="emailForm">
+    <div class="form-group">
+      <label for="email">To Email:</label>
+      <input type="email" id="email" name="email" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="subject">Subject:</label>
+      <input type="text" id="subject" name="subject" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="message">Message:</label>
+      <textarea id="message" name="message" rows="5" required></textarea>
+    </div>
+    
+    <button type="submit">Send Test Email</button>
+  </form>
+  
+  <div id="result"></div>
+  
+  <script>
+    document.getElementById('emailForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const resultDiv = document.getElementById('result');
+      resultDiv.style.display = 'block';
+      resultDiv.innerHTML = 'Sending email...';
+      resultDiv.className = '';
+      
+      const to = document.getElementById('email').value;
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value;
+      
+      try {
+        const response = await fetch('/.netlify/functions/send-email', {
+          method: 'POST',
+          body: JSON.stringify({
+            to,
+            subject,
+            html: `<div style="font-family: Arial, sans-serif; line-height: 1.6;">${message.replace(/\n/g, '<br>')}</div>`
+          }),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+          resultDiv.innerHTML = `Success! Email sent with message ID: ${data.messageId || 'N/A'}`;
+          resultDiv.className = 'success';
+        } else {
+          resultDiv.innerHTML = `Error: ${data.error || 'Unknown error'}<br>Details: ${data.details || 'No details provided'}`;
+          resultDiv.className = 'error';
+        }
+      } catch (error) {
+        resultDiv.innerHTML = `Error: ${error.message}`;
+        resultDiv.className = 'error';
+      }
+    });
+  </script>
+</body>
+</html> 

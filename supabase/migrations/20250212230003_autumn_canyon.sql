@@ -1,0 +1,11 @@
+\n\n-- Drop and recreate materialized view if it exists\nDO $$ \nBEGIN\n  DROP MATERIALIZED VIEW IF EXISTS trip_seats;
+\n  \n  CREATE MATERIALIZED VIEW trip_seats AS\n  SELECT \n    t.id as trip_id,\n    t.seats as total_seats,\n    COUNT(b.id) FILTER (WHERE b.status = 'accepted') as booked_seats,\n    t.seats - COUNT(b.id) FILTER (WHERE b.status = 'accepted') as available_seats\n  FROM trips t\n  LEFT JOIN bookings b ON b.trip_id = t.id\n  GROUP BY t.id, t.seats;
+\nEND $$;
+\n\n-- Create or replace function for notification on booking\nCREATE OR REPLACE FUNCTION notify_driver_on_booking()\nRETURNS TRIGGER AS $$\nBEGIN\n  INSERT INTO notifications (user_id, type, content)\n  SELECT \n    t.driver_id,\n    'booking_request',\n    jsonb_build_object(\n      'booking_id', NEW.id,\n      'trip_id', NEW.trip_id,\n      'passenger_id', NEW.user_id\n    )\n  FROM trips t\n  WHERE t.id = NEW.trip_id;
+\n  RETURN NEW;
+\nEND;
+\n$$ LANGUAGE plpgsql SECURITY DEFINER;
+\n\n-- Drop and recreate trigger\nDO $$\nBEGIN\n  DROP TRIGGER IF EXISTS on_booking_created ON bookings;
+\n  \n  CREATE TRIGGER on_booking_created\n    AFTER INSERT ON bookings\n    FOR EACH ROW\n    EXECUTE FUNCTION notify_driver_on_booking();
+\nEND $$;
+;

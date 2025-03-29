@@ -1,0 +1,10 @@
+\n\n-- Add travel_preferences column to profiles\nALTER TABLE profiles \nADD COLUMN IF NOT EXISTS travel_preferences JSONB DEFAULT '{}'::jsonb;
+\n\n-- Create vehicles table\nCREATE TABLE IF NOT EXISTS vehicles (\n  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),\n  owner_id uuid REFERENCES profiles(id) ON DELETE CASCADE NOT NULL,\n  make text NOT NULL,\n  model text NOT NULL,\n  year integer NOT NULL,\n  color text NOT NULL,\n  plate_number text NOT NULL,\n  comfort_level text NOT NULL CHECK (comfort_level IN ('basic', 'standard', 'premium', 'luxury')),\n  created_at timestamptz DEFAULT now(),\n  UNIQUE(owner_id, plate_number)\n);
+\n\n-- Enable RLS\nALTER TABLE vehicles ENABLE ROW LEVEL SECURITY;
+\n\n-- Create indexes\nCREATE INDEX IF NOT EXISTS idx_vehicles_owner ON vehicles(owner_id);
+\nCREATE INDEX IF NOT EXISTS idx_vehicles_plate ON vehicles(plate_number);
+\n\n-- Create RLS policies for vehicles\nCREATE POLICY "Users can view their own vehicles"\n  ON vehicles FOR SELECT\n  TO authenticated\n  USING (auth.uid() = owner_id);
+\n\nCREATE POLICY "Users can create vehicles"\n  ON vehicles FOR INSERT\n  TO authenticated\n  WITH CHECK (auth.uid() = owner_id);
+\n\nCREATE POLICY "Users can update their own vehicles"\n  ON vehicles FOR UPDATE\n  TO authenticated\n  USING (auth.uid() = owner_id)\n  WITH CHECK (auth.uid() = owner_id);
+\n\nCREATE POLICY "Users can delete their own vehicles"\n  ON vehicles FOR DELETE\n  TO authenticated\n  USING (auth.uid() = owner_id);
+;

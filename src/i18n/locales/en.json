@@ -1,0 +1,448 @@
+{
+  "nav": {
+    "offer_ride": "Offer a ride",
+    "login": "Login",
+    "logout": "Logout"
+  },
+  "hero": {
+    "title": "Travel in Moldova with confidence",
+    "subtitle": "The platform connecting drivers and passengers for safe and comfortable trips",
+    "search_button": "Find trips"
+  },
+  "search": {
+    "from_placeholder": "Where are you leaving from?",
+    "to_placeholder": "Where are you going?",
+    "date_placeholder": "Choose date",
+    "passengers_placeholder": "Number of passengers",
+    "search_button": "Search",
+    "no_results": "No trips found",
+    "loading": "Searching trips..."
+  },
+  "features": {
+    "title": "Why choose GoMoldova?",
+    "subtitle": "Our platform connects drivers and passengers for safe travel in Moldova",
+    "safety": {
+      "title": "Guaranteed safety",
+      "description": "We verify all drivers and maintain high safety standards"
+    },
+    "convenience": {
+      "title": "Quick and convenient",
+      "description": "Find and book trips in minutes"
+    },
+    "community": {
+      "title": "Trusted community",
+      "description": "Join thousands of users traveling together"
+    }
+  },
+  "how_it_works": {
+    "title": "How It Works",
+    "section1": {
+      "title": "Registration and Login",
+      "content": "Create a new account or log in to your existing account to start using our platform."
+    },
+    "section2": {
+      "title": "Search and Booking",
+      "content": "Search for available routes, select your desired date and time, and book your seat on the bus."
+    },
+    "section3": {
+      "title": "Confirmation and Notifications",
+      "content": "Receive booking confirmation via email and notifications about journey updates."
+    }
+  },
+  "popular_destinations": {
+    "title": "Popular destinations",
+    "subtitle": "Discover the most sought-after routes in Moldova",
+    "chisinau": {
+      "title": "Chisinau",
+      "description": "The capital of Moldova"
+    },
+    "balti": {
+      "title": "Balti",
+      "description": "The second largest city"
+    },
+    "cahul": {
+      "title": "Cahul",
+      "description": "The southern gateway of Moldova"
+    },
+    "find_trips": "Find trips"
+  },
+  "bus_company_section": {
+    "title": "For transport companies",
+    "subtitle": "Are you a transport company? Join our platform and expand your business",
+    "benefits": {
+      "title": "Benefits for transport companies",
+      "management": "Manage all routes and bookings in one place",
+      "audience": "Reach a larger audience of travelers",
+      "fleet": "Advanced fleet management system"
+    },
+    "register_button": "Register your company"
+  },
+  "profile": {
+    "title": "Profile",
+    "sections": {
+      "my_trips": "My trips",
+      "bookings": "Bookings",
+      "messages": "Messages",
+      "transfers": "Transfers",
+      "payments": "Payments & refunds"
+    },
+    "settings": {
+      "title": "Settings",
+      "personal_info": "Personal information",
+      "notifications": "Notifications",
+      "privacy": "Privacy",
+      "language": "Language"
+    }
+  },
+  "admin": {
+    "dashboard": {
+      "title": "Dashboard",
+      "total_users": "Total users",
+      "active_trips": "Active trips",
+      "pending_registrations": "Pending registrations"
+    },
+    "bus_companies": {
+      "title": "Transport companies",
+      "add_new": "Add new company",
+      "view_details": "View details"
+    },
+    "users": {
+      "title": "Users",
+      "search": "Search users",
+      "export": "Export data"
+    }
+  },
+  "bus_companies": {
+    "title": "Bus Company Registrations",
+    "status": {
+      "all": "All Status",
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    },
+    "table": {
+      "company_info": "Company Info",
+      "contact": "Contact",
+      "description": "Description",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "actions": {
+      "refresh": "Refresh",
+      "contact": "Contact",
+      "approve": "Approve",
+      "reject": "Reject"
+    },
+    "modal": {
+      "approve_title": "Confirm Approval",
+      "reject_title": "Confirm Rejection",
+      "confirm_message": "Are you sure you want to {action} the registration for",
+      "cannot_undo": "This action cannot be undone.",
+      "cancel": "Cancel",
+      "processing": "Processing..."
+    }
+  },
+  "notifications": {
+    "title": "Notifications",
+    "no_notifications": "No new notifications",
+    "mark_all_read": "Mark all as read",
+    "new_booking": "New booking",
+    "booking_confirmed": "Booking confirmed",
+    "booking_rejected": "Booking rejected",
+    "new_message": "New message"
+  },
+  "booking": {
+    "title": "Book trip",
+    "passenger_details": "Passenger details",
+    "trip_details": "Trip details",
+    "payment": "Payment",
+    "confirmation": "Confirmation",
+    "success": "Booking completed successfully",
+    "error": "Booking error"
+  },
+  "messages": {
+    "title": "Messages",
+    "no_messages": "No messages",
+    "new_message": "New message",
+    "send": "Send",
+    "reply": "Reply"
+  },
+  "errors": {
+    "general": "Something went wrong",
+    "loading": "Error loading",
+    "not_found": "Page not found",
+    "unauthorized": "Authentication required",
+    "forbidden": "Access denied"
+  },
+  "footer": {
+    "about": {
+      "title": "About",
+      "how_it_works": "How it works",
+      "company": "About company",
+      "press": "Press"
+    },
+    "info": {
+      "title": "Information",
+      "help": "Help",
+      "safety": "Safety",
+      "terms": "Terms"
+    },
+    "contact": {
+      "title": "Contact",
+      "support": "Support",
+      "contact_us": "Contact us",
+      "partners": "Partners"
+    },
+    "copyright": "© 2024 GoMoldova. All rights reserved."
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "email": "Email",
+    "password": "Password",
+    "name": "Name",
+    "forgotPassword": "Forgot password?",
+    "noAccount": "Don't have an account? Register",
+    "haveAccount": "Already have an account? Login",
+    "enterEmail": "Enter your email address",
+    "resetPassword": {
+      "title": "Reset Password",
+      "description": "Enter your email address and we'll send you a link to reset your password.",
+      "email": "Email",
+      "enterEmail": "Enter your email",
+      "submit": "Send Reset Link",
+      "success": "Password reset link sent! Please check your email.",
+      "error": "Failed to send reset link. Please try again.",
+      "userNotFound": "No account found with this email address. Please check your email or sign up for a new account."
+    },
+    "updatePassword": {
+      "title": "Change Password",
+      "description": "Please enter your new password",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm Password",
+      "enterNewPassword": "Enter new password",
+      "confirmNewPassword": "Confirm new password",
+      "submit": "Change Password",
+      "success": "Password has been changed successfully",
+      "error": "Error changing password",
+      "invalidToken": "Password reset link is invalid or has expired",
+      "passwordsDoNotMatch": "Passwords do not match",
+      "passwordTooShort": "Password must be at least 6 characters"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "save": "Save",
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "delete": "Delete",
+    "view": "View",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit"
+  },
+  "trips": {
+    "search": {
+      "title": "Search trips",
+      "filters": "Filters",
+      "sort": "Sort",
+      "results_count": "{{count}} trips found"
+    },
+    "details": {
+      "book_now": "Book now",
+      "price": "Price",
+      "seats": "Available seats",
+      "departure": "Departure",
+      "arrival": "Arrival"
+    }
+  },
+  "info_pages": {
+    "about": {
+      "title": "About us",
+      "mission": "Our mission",
+      "vision": "Our vision"
+    },
+    "safety": {
+      "title": "Safety",
+      "guidelines": "Safety guidelines",
+      "tips": "Travel tips"
+    },
+    "terms": {
+      "title": "Terms and conditions",
+      "privacy": "Privacy policy",
+      "cookies": "Cookie policy"
+    },
+    "contact": {
+      "title": "Contact",
+      "support": "Support",
+      "business": "Business relations"
+    }
+  },
+  "about_company": {
+    "title": "About Our Company",
+    "section1": {
+      "title": "Our Mission",
+      "content": "We are dedicated to providing safe and comfortable transportation services for all travelers in Moldova, connecting communities and facilitating travel."
+    },
+    "section2": {
+      "title": "Our Values",
+      "content": "Quality, safety, and comfort are the core values that guide every aspect of our services."
+    },
+    "section3": {
+      "title": "Experience",
+      "content": "With years of experience in the transportation industry, we have built a solid reputation based on our customers' trust."
+    }
+  },
+  "press": {
+    "title": "Press Center",
+    "subtitle": "Latest news, press releases, and media resources about GoMoldova",
+    "section1": {
+      "title": "Press Contact",
+      "content": "For press inquiries, interviews, or additional information, please contact:",
+      "department": "Public Relations Department",
+      "spokesperson": "Spokesperson",
+      "spokesperson_name": "Elena Popescu, Director of Communications"
+    },
+    "section2": {
+      "title": "Press Releases",
+      "release1": {
+        "title": "GoMoldova officially launches ride-sharing platform in Moldova",
+        "content": "Today, GoMoldova has officially launched the first ride-sharing platform dedicated to Moldova, connecting drivers and passengers for more efficient and accessible travel across the country."
+      },
+      "release2": {
+        "title": "GoMoldova reaches 5,000 users milestone in first month after launch",
+        "content": "Just one month after the official launch, GoMoldova has reached the milestone of 5,000 registered users, exceeding initial estimates and demonstrating the acute need for shared mobility services in Moldova."
+      },
+      "read_more": "Read full press release"
+    },
+    "section3": {
+      "title": "Media Resources",
+      "press_kit": "Press Kit",
+      "press_kit_content": "Download our press kit which includes company information, statistics, photos, and graphics for use in articles and reports.",
+      "download_kit": "Download press kit (ZIP, 25MB)",
+      "brand_assets": "Logo and Brand Assets",
+      "brand_assets_content": "Access our official logos, brand guidelines, and other visual elements for use in media materials.",
+      "download_assets": "Download brand assets (ZIP, 10MB)"
+    },
+    "section4": {
+      "title": "Subscribe to our press releases",
+      "content": "Receive the latest news and updates about GoMoldova directly in your inbox",
+      "email_placeholder": "Your email address",
+      "subscribe": "Subscribe"
+    }
+  },
+  "help": {
+    "title": "Help Center",
+    "subtitle": "Find answers to frequently asked questions and learn how to use the GoMoldova platform",
+    "quick_actions": {
+      "email": {
+        "title": "Email",
+        "content": "Send us an email for assistance"
+      },
+      "phone": {
+        "title": "Phone",
+        "content": "Call us for immediate support"
+      },
+      "chat": {
+        "title": "Chat",
+        "content": "Chat with an agent in real-time",
+        "button": "Start chat"
+      },
+      "hours": {
+        "title": "Hours",
+        "content": "Available 24/7 for support"
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "q1": "How do I create an account on GoMoldova?",
+      "a1": "To create an account on GoMoldova, go to the main page and click the 'Login' button in the top right corner. Then select the 'Register' option and follow the steps to create your account.",
+      "q2": "How can I book a trip?",
+      "a2": "After finding a trip that suits you, click the 'View details' button to see more information. If you want to book a seat, click the 'Book seat' button.",
+      "q3": "How can I cancel a booking?",
+      "a3": "You can cancel a booking by accessing the 'My Trips' section and selecting the trip you want to cancel. There are no cancellation fees.",
+      "q4": "How are payments processed?",
+      "a4": "Currently, payments are made directly between passenger and driver in cash at the beginning or end of the trip."
+    },
+    "categories": {
+      "booking": {
+        "title": "Bookings",
+        "content": "Learn how to book and manage your trips.",
+        "link": "Booking guide"
+      },
+      "safety": {
+        "title": "Safety",
+        "content": "Information about our safety measures and protection.",
+        "link": "Learn more"
+      },
+      "payment": {
+        "title": "Payments",
+        "content": "Information about payment methods and the payment process.",
+        "link": "Payment methods"
+      }
+    }
+  },
+  "safety": {
+    "title": "Safety on GoMoldova",
+    "subtitle": "The safety of our community is our top priority. Here's how we work to keep the platform safe for all users.",
+    "overview": {
+      "title": "Safety Overview",
+      "content": "At GoMoldova, we are dedicated to providing a safe and comfortable travel experience for all our users. We implement rigorous safety measures and verification processes to ensure our platform remains a safe space for everyone."
+    },
+    "guidelines": {
+      "verification": {
+        "title": "User Verification",
+        "content": "Our verification process ensures that all users are authentic and trustworthy.",
+        "points": {
+          "identity": "Identity verification through email and documents",
+          "background": "Background checks for drivers",
+          "reviews": "Rating and review system"
+        }
+      },
+      "payment": {
+        "title": "Payment Security",
+        "content": "Our payment process is designed to protect both drivers and passengers.",
+        "points": {
+          "secure": "Secure and recorded payments",
+          "transparent": "Transparent payment process",
+          "protection": "Fraud protection"
+        }
+      }
+    },
+    "tips": {
+      "title": "Safety Tips",
+      "before": {
+        "title": "Before the Trip",
+        "points": {
+          "verify": "Check the driver's profile and reviews",
+          "review": "Read and review trip details",
+          "share": "Share trip details with someone you trust"
+        }
+      },
+      "during": {
+        "title": "During the Trip",
+        "points": {
+          "belt": "Wear your seatbelt",
+          "alert": "Stay vigilant and aware",
+          "comfort": "Communicate if you feel uncomfortable"
+        }
+      },
+      "after": {
+        "title": "After the Trip",
+        "points": {
+          "rate": "Rate your trip experience",
+          "report": "Report any incidents or inappropriate behavior",
+          "feedback": "Provide feedback to improve the service"
+        }
+      }
+    },
+    "emergency": {
+      "title": "Emergency Support",
+      "content": "If you encounter an emergency situation or need immediate assistance, our team is available 24/7.",
+      "call": "Call now",
+      "email": "Send email"
+    }
+  }
+} 

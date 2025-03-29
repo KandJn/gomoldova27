@@ -1,0 +1,13 @@
+\n\n-- Add verification fields to trips table\nALTER TABLE trips\n  ADD COLUMN IF NOT EXISTS is_verified boolean DEFAULT false,\n  ADD COLUMN IF NOT EXISTS verified_at timestamptz,\n  ADD COLUMN IF NOT EXISTS verified_by uuid REFERENCES auth.users(id),\n  ADD COLUMN IF NOT EXISTS verification_notes text;
+\n\n-- Create index for is_verified\nCREATE INDEX IF NOT EXISTS idx_trips_is_verified ON trips(is_verified);
+\n\n-- Create function to verify trip\nCREATE OR REPLACE FUNCTION verify_trip(\n  trip_id bigint,\n  notes text DEFAULT NULL\n)\nRETURNS void AS $$\nBEGIN\n  -- Check if user is admin\n  IF auth.email() = 'asassin.damian@gmail.com' THEN\n    UPDATE trips\n    SET \n      is_verified = true,\n      verified_at = now(),\n      verified_by = auth.uid(),\n      verification_notes = notes\n    WHERE id = trip_id;
+\n  ELSE\n    RAISE EXCEPTION 'Unauthorized';
+\n  END IF;
+\nEND;
+\n$$ LANGUAGE plpgsql SECURITY DEFINER;
+\n\n-- Create function to unverify trip\nCREATE OR REPLACE FUNCTION unverify_trip(\n  trip_id bigint,\n  notes text DEFAULT NULL\n)\nRETURNS void AS $$\nBEGIN\n  -- Check if user is admin\n  IF auth.email() = 'asassin.damian@gmail.com' THEN\n    UPDATE trips\n    SET \n      is_verified = false,\n      verified_at = NULL,\n      verified_by = NULL,\n      verification_notes = notes\n    WHERE id = trip_id;
+\n  ELSE\n    RAISE EXCEPTION 'Unauthorized';
+\n  END IF;
+\nEND;
+\n$$ LANGUAGE plpgsql SECURITY DEFINER;
+;

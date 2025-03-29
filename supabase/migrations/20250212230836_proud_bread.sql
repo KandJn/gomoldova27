@@ -1,0 +1,4 @@
+\n\n-- Drop existing problematic policy\nDROP POLICY IF EXISTS "Users can create bookings" ON bookings;
+\n\n-- Create new non-recursive policy for creating bookings\nCREATE POLICY "Users can create bookings"\n  ON bookings FOR INSERT\n  TO authenticated\n  WITH CHECK (\n    auth.uid() = user_id AND\n    EXISTS (\n      SELECT 1\n      FROM trips t\n      WHERE t.id = trip_id\n      AND t.seats > (\n        SELECT COALESCE(COUNT(*), 0)\n        FROM bookings b\n        WHERE b.trip_id = t.id\n        AND b.status = 'accepted'\n      )\n    )\n  );
+\n\n-- Add policy for updating booking status (for drivers)\nCREATE POLICY "Drivers can update booking status"\n  ON bookings FOR UPDATE\n  TO authenticated\n  USING (\n    EXISTS (\n      SELECT 1\n      FROM trips\n      WHERE id = trip_id\n      AND driver_id = auth.uid()\n    )\n  )\n  WITH CHECK (\n    status IN ('accepted', 'rejected', 'cancelled')\n  );
+;

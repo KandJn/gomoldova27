@@ -1,0 +1,16 @@
+\n\n-- Create messages table if it doesn't exist\nDO $$ \nBEGIN\n  IF NOT EXISTS (SELECT 1 FROM pg_tables WHERE tablename = 'messages') THEN\n    CREATE TABLE messages (\n      id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,\n      sender_id uuid REFERENCES profiles NOT NULL,\n      receiver_id uuid REFERENCES profiles NOT NULL,\n      content text NOT NULL,\n      created_at timestamptz DEFAULT now(),\n      read_at timestamptz\n    );
+\n  END IF;
+\nEND $$;
+\n\n-- Create notifications table if it doesn't exist\nDO $$ \nBEGIN\n  IF NOT EXISTS (SELECT 1 FROM pg_tables WHERE tablename = 'notifications') THEN\n    CREATE TABLE notifications (\n      id bigint PRIMARY KEY GENERATED ALWAYS AS IDENTITY,\n      user_id uuid REFERENCES profiles NOT NULL,\n      type text NOT NULL,\n      content jsonb NOT NULL,\n      created_at timestamptz DEFAULT now(),\n      read_at timestamptz\n    );
+\n  END IF;
+\nEND $$;
+\n\n-- Enable RLS on tables (safe to run multiple times)\nALTER TABLE messages ENABLE ROW LEVEL SECURITY;
+\nALTER TABLE notifications ENABLE ROW LEVEL SECURITY;
+\n\n-- Create or replace policies\nDO $$ \nBEGIN\n  -- Messages policies\n  DROP POLICY IF EXISTS "Users can view their messages" ON messages;
+\n  CREATE POLICY "Users can view their messages"\n    ON messages FOR SELECT\n    TO authenticated\n    USING (auth.uid() IN (sender_id, receiver_id));
+\n\n  DROP POLICY IF EXISTS "Users can send messages" ON messages;
+\n  CREATE POLICY "Users can send messages"\n    ON messages FOR INSERT\n    TO authenticated\n    WITH CHECK (auth.uid() = sender_id);
+\n\n  -- Notifications policies\n  DROP POLICY IF EXISTS "Users can view own notifications" ON notifications;
+\n  CREATE POLICY "Users can view own notifications"\n    ON notifications FOR SELECT\n    TO authenticated\n    USING (auth.uid() = user_id);
+\nEND $$;
+;

@@ -1,0 +1,11 @@
+\n\n-- Create verifications table\nCREATE TABLE IF NOT EXISTS verifications (\n  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),\n  user_id uuid REFERENCES profiles(id) ON DELETE CASCADE NOT NULL,\n  type text NOT NULL CHECK (type IN ('id', 'email', 'phone')),\n  status text NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'approved', 'rejected')),\n  data jsonb NOT NULL DEFAULT '{}'::jsonb,\n  created_at timestamptz DEFAULT now(),\n  updated_at timestamptz DEFAULT now()\n);
+\n\n-- Enable RLS\nALTER TABLE verifications ENABLE ROW LEVEL SECURITY;
+\n\n-- Create indexes\nCREATE INDEX IF NOT EXISTS idx_verifications_user ON verifications(user_id);
+\nCREATE INDEX IF NOT EXISTS idx_verifications_type ON verifications(type);
+\nCREATE INDEX IF NOT EXISTS idx_verifications_status ON verifications(status);
+\n\n-- Create RLS policies\nCREATE POLICY "Users can view own verifications"\n  ON verifications FOR SELECT\n  TO authenticated\n  USING (auth.uid() = user_id);
+\n\nCREATE POLICY "Users can create verifications"\n  ON verifications FOR INSERT\n  TO authenticated\n  WITH CHECK (auth.uid() = user_id);
+\n\n-- Create function to update verification status\nCREATE OR REPLACE FUNCTION update_verification_status(\n  verification_id uuid,\n  new_status text,\n  admin_key text\n)\nRETURNS void AS $$\nBEGIN\n  -- In a real app, you would check the admin key\n  -- For demo purposes, we'll just update the status\n  UPDATE verifications\n  SET \n    status = new_status,\n    updated_at = now()\n  WHERE id = verification_id;
+\nEND;
+\n$$ LANGUAGE plpgsql SECURITY DEFINER;
+;

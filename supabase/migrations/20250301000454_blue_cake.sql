@@ -1,0 +1,17 @@
+-- Drop all existing booking policies\nDO $$ \nBEGIN\n  DROP POLICY IF EXISTS "anyone_can_book" ON bookings;
+\n  DROP POLICY IF EXISTS "view_own_bookings" ON bookings;
+\n  DROP POLICY IF EXISTS "drivers_manage_bookings" ON bookings;
+\nEND $$;
+\n\n-- Create simple, non-recursive booking policies\nCREATE POLICY "booking_insert"\n  ON bookings FOR INSERT\n  TO authenticated\n  WITH CHECK (\n    auth.uid() = user_id AND\n    EXISTS (\n      SELECT 1 FROM trips t\n      WHERE t.id = trip_id\n      AND t.driver_id != auth.uid()\n      AND t.seats > (\n        SELECT COUNT(*)\n        FROM bookings b\n        WHERE b.trip_id = t.id\n        AND b.status = 'accepted'\n      )\n    )\n  );
+\n\nCREATE POLICY "booking_select"\n  ON bookings FOR SELECT\n  TO authenticated\n  USING (\n    auth.uid() = user_id OR\n    EXISTS (\n      SELECT 1 FROM trips t\n      WHERE t.id = trip_id\n      AND t.driver_id = auth.uid()\n    )\n  );
+\n\nCREATE POLICY "booking_update"\n  ON bookings FOR UPDATE\n  TO authenticated\n  USING (\n    EXISTS (\n      SELECT 1 FROM trips t\n      WHERE t.id = trip_id\n      AND t.driver_id = auth.uid()\n    )\n  )\n  WITH CHECK (\n    status IN ('accepted', 'rejected', 'cancelled')\n  );
+\n\n-- Create function to check admin status\nCREATE OR REPLACE FUNCTION is_admin() \nRETURNS boolean AS $$\nBEGIN\n  RETURN auth.email() = 'asassin.damian@gmail.com';
+\nEND;
+\n$$ LANGUAGE plpgsql SECURITY DEFINER;
+\n\n-- Create function to get admin role\nCREATE OR REPLACE FUNCTION get_admin_role() \nRETURNS text AS $$\nBEGIN\n  IF auth.email() = 'asassin.damian@gmail.com' THEN\n    RETURN 'admin';
+\n  END IF;
+\n  RETURN NULL;
+\nEND;
+\n$$ LANGUAGE plpgsql SECURITY DEFINER;
+\n\n-- Refresh materialized view\nREFRESH MATERIALIZED VIEW trip_seats;
+;

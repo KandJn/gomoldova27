@@ -1,0 +1,13 @@
+-- Drop existing problematic policies\nDROP POLICY IF EXISTS "bookings_create" ON bookings;
+\nDROP POLICY IF EXISTS "bookings_view" ON bookings;
+\nDROP POLICY IF EXISTS "bookings_update" ON bookings;
+\nDROP POLICY IF EXISTS "bookings_insert_policy" ON bookings;
+\nDROP POLICY IF EXISTS "bookings_select_policy" ON bookings;
+\nDROP POLICY IF EXISTS "bookings_update_policy" ON bookings;
+\n\n-- Create simplified booking policies\nCREATE POLICY "allow_booking_insert"\n  ON bookings FOR INSERT\n  TO authenticated\n  WITH CHECK (\n    auth.uid() = user_id AND\n    EXISTS (\n      SELECT 1 FROM trips t\n      WHERE t.id = trip_id\n      AND t.driver_id != auth.uid()\n      AND t.seats > (\n        SELECT COUNT(*)\n        FROM bookings b\n        WHERE b.trip_id = t.id\n        AND b.status = 'accepted'\n      )\n    )\n  );
+\n\nCREATE POLICY "allow_booking_select"\n  ON bookings FOR SELECT\n  TO authenticated\n  USING (\n    auth.uid() = user_id OR\n    EXISTS (\n      SELECT 1 FROM trips t\n      WHERE t.id = trip_id\n      AND t.driver_id = auth.uid()\n    )\n  );
+\n\nCREATE POLICY "allow_booking_update"\n  ON bookings FOR UPDATE\n  TO authenticated\n  USING (\n    EXISTS (\n      SELECT 1 FROM trips t\n      WHERE t.id = trip_id\n      AND t.driver_id = auth.uid()\n    )\n  )\n  WITH CHECK (\n    status IN ('accepted', 'rejected', 'cancelled')\n  );
+\n\n-- Add indexes for better performance\nCREATE INDEX IF NOT EXISTS idx_bookings_trip_status ON bookings(trip_id, status);
+\nCREATE INDEX IF NOT EXISTS idx_bookings_user_status ON bookings(user_id, status);
+\n\n-- Refresh materialized view\nREFRESH MATERIALIZED VIEW trip_seats;
+;

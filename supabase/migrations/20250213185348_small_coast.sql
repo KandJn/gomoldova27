@@ -1,0 +1,15 @@
+\n\n-- Add city and address columns if they don't exist\nDO $$ \nBEGIN\n  IF NOT EXISTS (\n    SELECT 1 FROM information_schema.columns \n    WHERE table_name = 'trips' AND column_name = 'from_city'\n  ) THEN\n    ALTER TABLE trips ADD COLUMN from_city text NOT NULL DEFAULT '';
+\n  END IF;
+\n\n  IF NOT EXISTS (\n    SELECT 1 FROM information_schema.columns \n    WHERE table_name = 'trips' AND column_name = 'to_city'\n  ) THEN\n    ALTER TABLE trips ADD COLUMN to_city text NOT NULL DEFAULT '';
+\n  END IF;
+\n\n  IF NOT EXISTS (\n    SELECT 1 FROM information_schema.columns \n    WHERE table_name = 'trips' AND column_name = 'from_address'\n  ) THEN\n    ALTER TABLE trips ADD COLUMN from_address text;
+\n  END IF;
+\n\n  IF NOT EXISTS (\n    SELECT 1 FROM information_schema.columns \n    WHERE table_name = 'trips' AND column_name = 'to_address'\n  ) THEN\n    ALTER TABLE trips ADD COLUMN to_address text;
+\n  END IF;
+\nEND $$;
+\n\n-- Add indexes for city search\nCREATE INDEX IF NOT EXISTS idx_trips_from_city ON trips(from_city);
+\nCREATE INDEX IF NOT EXISTS idx_trips_to_city ON trips(to_city);
+\nCREATE INDEX IF NOT EXISTS idx_trips_cities ON trips(from_city, to_city);
+\n\n-- Update existing trips to copy data from "from" and "to" columns\nUPDATE trips \nSET \n  from_city = "from",\n  to_city = "to"\nWHERE from_city = '';
+\n\n-- Add policy for address visibility\nCREATE POLICY "Address visibility"\n  ON trips FOR SELECT\n  TO authenticated\n  USING (\n    CASE \n      WHEN auth.uid() = driver_id THEN true\n      WHEN EXISTS (\n        SELECT 1 FROM bookings \n        WHERE trip_id = trips.id \n        AND user_id = auth.uid()\n        AND status = 'accepted'\n      ) THEN true\n      ELSE false\n    END\n  );
+;

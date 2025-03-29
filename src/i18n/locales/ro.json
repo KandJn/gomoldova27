@@ -1,0 +1,518 @@
+{
+  "nav": {
+    "offer_ride": "Oferă o călătorie",
+    "login": "Autentificare",
+    "logout": "Deconectare"
+  },
+  "hero": {
+    "title": "Călătorește în Moldova cu încredere",
+    "subtitle": "Platforma care conectează șoferii și pasagerii pentru călătorii sigure și confortabile",
+    "search_button": "Caută călătorii"
+  },
+  "search": {
+    "from_placeholder": "De unde pleci?",
+    "to_placeholder": "Unde mergi?",
+    "date_placeholder": "Alege data",
+    "passengers_placeholder": "Număr de pasageri",
+    "search_button": "Caută",
+    "no_results": "Nu s-au găsit călătorii",
+    "loading": "Se caută călătorii..."
+  },
+  "features": {
+    "title": "De ce să alegi GoMoldova?",
+    "subtitle": "Platforma noastră conectează șoferii și pasagerii pentru călătorii sigure în Moldova",
+    "safety": {
+      "title": "Siguranță garantată",
+      "description": "Verificăm toți șoferii și menținem standarde înalte de siguranță"
+    },
+    "convenience": {
+      "title": "Convenabil și rapid",
+      "description": "Găsește și rezervă călătorii în câteva minute"
+    },
+    "community": {
+      "title": "Comunitate de încredere",
+      "description": "Alătură-te miilor de utilizatori care călătoresc împreună"
+    }
+  },
+  "how_it_works": {
+    "title": "Cum funcționează",
+    "section1": {
+      "title": "Înregistrare și Autentificare",
+      "content": "Creați un cont nou sau conectați-vă la contul existent pentru a începe să folosiți platforma noastră."
+    },
+    "section2": {
+      "title": "Căutare și Rezervare",
+      "content": "Căutați rute disponibile, selectați data și ora dorită, și rezervați locul dumneavoastră în autobuz."
+    },
+    "section3": {
+      "title": "Confirmare și Notificări",
+      "content": "Primiți confirmarea rezervării prin email și notificări despre actualizările călătoriei."
+    }
+  },
+  "popular_destinations": {
+    "title": "Destinații populare",
+    "subtitle": "Descoperă cele mai căutate rute din Moldova",
+    "chisinau": {
+      "title": "Chișinău",
+      "description": "Capitala Moldovei"
+    },
+    "balti": {
+      "title": "Bălți",
+      "description": "Al doilea oraș ca mărime"
+    },
+    "cahul": {
+      "title": "Cahul",
+      "description": "Poarta de sud a Moldovei"
+    },
+    "find_trips": "Găsește călătorii"
+  },
+  "bus_company_section": {
+    "title": "Pentru companiile de transport",
+    "subtitle": "Sunteți o companie de transport? Alăturați-vă platformei noastre și extindeți-vă afacerea",
+    "benefits": {
+      "title": "Beneficii pentru companiile de transport",
+      "management": "Gestionați toate rutele și rezervările într-un singur loc",
+      "audience": "Ajungeți la o audiență mai mare de călători",
+      "fleet": "Sistem avansat de gestionare a flotei"
+    },
+    "register_button": "Înregistrează-ți compania"
+  },
+  "profile": {
+    "title": "Profil",
+    "sections": {
+      "my_trips": "Călătoriile mele",
+      "bookings": "Rezervări",
+      "messages": "Mesaje",
+      "transfers": "Transferuri",
+      "payments": "Plăți și rambursări"
+    },
+    "settings": {
+      "title": "Setări",
+      "personal_info": "Informații personale",
+      "notifications": "Notificări",
+      "privacy": "Confidențialitate",
+      "language": "Limbă"
+    }
+  },
+  "admin": {
+    "dashboard": {
+      "title": "Panou de control",
+      "total_users": "Total utilizatori",
+      "active_trips": "Călătorii active",
+      "pending_registrations": "Înregistrări în așteptare"
+    },
+    "bus_companies": {
+      "title": "Companii de transport",
+      "add_new": "Adaugă companie nouă",
+      "view_details": "Vezi detalii"
+    },
+    "users": {
+      "title": "Utilizatori",
+      "search": "Caută utilizatori",
+      "export": "Exportă date"
+    }
+  },
+  "trips": {
+    "search": {
+      "title": "Caută călătorii",
+      "filters": "Filtre",
+      "sort": "Sortare",
+      "results_count": "{{count}} călătorii găsite"
+    },
+    "details": {
+      "book_now": "Rezervă acum",
+      "price": "Preț",
+      "seats": "Locuri disponibile",
+      "departure": "Plecare",
+      "arrival": "Sosire"
+    }
+  },
+  "info_pages": {
+    "about": {
+      "title": "Despre noi",
+      "mission": "Misiunea noastră",
+      "vision": "Viziunea noastră"
+    },
+    "safety": {
+      "title": "Siguranță",
+      "guidelines": "Ghid de siguranță",
+      "tips": "Sfaturi pentru călători"
+    },
+    "terms": {
+      "title": "Termeni și condiții",
+      "privacy": "Politica de confidențialitate",
+      "cookies": "Politica de cookies"
+    },
+    "contact": {
+      "title": "Contact",
+      "support": "Suport",
+      "business": "Relații de afaceri"
+    }
+  },
+  "notifications": {
+    "title": "Notificări",
+    "no_notifications": "Nu există notificări noi",
+    "mark_all_read": "Marchează toate ca citite",
+    "new_booking": "Rezervare nouă",
+    "booking_confirmed": "Rezervare confirmată",
+    "booking_rejected": "Rezervare respinsă",
+    "new_message": "Mesaj nou"
+  },
+  "booking": {
+    "title": "Rezervare călătorie",
+    "passenger_details": "Detalii pasager",
+    "trip_details": "Detalii călătorie",
+    "payment": "Plată",
+    "confirmation": "Confirmare",
+    "success": "Rezervare finalizată cu succes",
+    "error": "Eroare la rezervare"
+  },
+  "messages": {
+    "title": "Mesaje",
+    "no_messages": "Nu există mesaje",
+    "new_message": "Mesaj nou",
+    "send": "Trimite",
+    "reply": "Răspunde"
+  },
+  "errors": {
+    "general": "Ceva nu a mers bine",
+    "loading": "Eroare la încărcare",
+    "not_found": "Pagina nu a fost găsită",
+    "unauthorized": "Autentificare necesară",
+    "forbidden": "Acces interzis"
+  },
+  "footer": {
+    "about": {
+      "title": "Despre noi",
+      "how_it_works": "Cum funcționează",
+      "company": "Despre companie",
+      "press": "Presă"
+    },
+    "info": {
+      "title": "Informații",
+      "help": "Ajutor",
+      "safety": "Siguranță",
+      "terms": "Termeni și condiții"
+    },
+    "contact": {
+      "title": "Contact",
+      "support": "Suport",
+      "contact_us": "Contactează-ne",
+      "partners": "Parteneri"
+    },
+    "copyright": "© 2024 GoMoldova. Toate drepturile rezervate."
+  },
+  "auth": {
+    "login": "Autentificare",
+    "register": "Înregistrare",
+    "email": "Email",
+    "password": "Parolă",
+    "name": "Nume",
+    "forgotPassword": "Ai uitat parola?",
+    "noAccount": "Nu ai cont? Înregistrează-te",
+    "haveAccount": "Ai deja cont? Autentifică-te",
+    "enterEmail": "Introdu adresa ta de email",
+    "resetPassword": {
+      "title": "Resetare Parolă",
+      "description": "Introduceți adresa de email și vă vom trimite un link pentru resetarea parolei.",
+      "email": "Email",
+      "enterEmail": "Introduceți emailul",
+      "submit": "Trimite Link Resetare",
+      "success": "Link-ul de resetare a parolei a fost trimis! Vă rugăm să verificați emailul.",
+      "error": "Nu s-a putut trimite link-ul de resetare. Vă rugăm să încercați din nou.",
+      "userNotFound": "Nu s-a găsit niciun cont cu această adresă de email. Vă rugăm să verificați emailul sau să vă înregistrați pentru un cont nou."
+    },
+    "updatePassword": {
+      "title": "Actualizare Parolă",
+      "description": "Introduceți noua parolă pentru contul dvs.",
+      "newPassword": "Parolă Nouă",
+      "confirmPassword": "Confirmare Parolă",
+      "enterNewPassword": "Introduceți noua parolă",
+      "confirmNewPassword": "Confirmați noua parolă",
+      "submit": "Actualizează Parola",
+      "success": "Parola a fost actualizată cu succes!",
+      "error": "Eroare la actualizarea parolei",
+      "passwordsDoNotMatch": "Parolele nu se potrivesc",
+      "passwordTooShort": "Parola trebuie să aibă cel puțin 6 caractere",
+      "invalidToken": "Link-ul de resetare este invalid sau a expirat"
+    }
+  },
+  "common": {
+    "loading": "Se încarcă...",
+    "error": "Eroare",
+    "success": "Succes",
+    "save": "Salvează",
+    "cancel": "Anulează",
+    "edit": "Editează",
+    "delete": "Șterge",
+    "view": "Vezi",
+    "back": "Înapoi",
+    "next": "Următorul",
+    "submit": "Trimite",
+    "backToHome": "Înapoi la Pagina Principală"
+  },
+  "bus_company_registration": {
+    "title": "Înregistrează-ți compania de transport",
+    "subtitle": "Alătură-te platformei noastre pentru a oferi servicii de transport în Moldova și nu numai",
+    "company_information": "Informații companie",
+    "additional_details": "Detalii suplimentare",
+    "registration_submitted": "Înregistrare trimisă cu succes",
+    "registration_success_message": "Vă mulțumim pentru înregistrarea companiei de transport. Cererea dvs. a fost trimisă și este în curs de examinare de către administratorii noștri. Veți primi un email când cererea dvs. va fi procesată.",
+    "return_to_home": "Înapoi la pagina principală",
+    "fields": {
+      "company_name": "Denumirea companiei",
+      "company_name_placeholder": "Introduceți denumirea companiei",
+      "registration_number": "Număr de înregistrare",
+      "registration_number_placeholder": "Introduceți numărul de înregistrare al companiei",
+      "tax_id": "Cod fiscal",
+      "tax_id_placeholder": "Introduceți codul fiscal",
+      "email": "Email",
+      "email_placeholder": "Introduceți emailul de afaceri",
+      "phone": "Număr de telefon",
+      "phone_placeholder": "Introduceți numărul de telefon",
+      "website": "Website",
+      "website_placeholder": "Introduceți website-ul companiei",
+      "address": "Adresa",
+      "address_placeholder": "Introduceți adresa companiei",
+      "address_hint": "Începeți să tastați și alegeți o adresă sugerată de Google Maps",
+      "city": "Oraș",
+      "city_placeholder": "Introduceți orașul",
+      "country": "Țara",
+      "company_size": "Mărimea companiei",
+      "select_size": "Selectați mărimea",
+      "year_founded": "Anul fondării",
+      "contact_person_name": "Numele persoanei de contact",
+      "contact_person_name_placeholder": "Introduceți numele persoanei de contact",
+      "contact_person_position": "Funcția persoanei de contact",
+      "contact_person_position_placeholder": "Introduceți funcția (ex. Manager, Director)",
+      "description": "Descrierea companiei",
+      "description_placeholder": "Spuneți-ne despre compania dvs., flota, serviciile oferite, etc."
+    },
+    "submit_registration": "Trimite înregistrarea",
+    "required_fields": "Vă rugăm să completați toate câmpurile obligatorii",
+    "email_validation": "Introduceți o adresă de email validă",
+    "next": "Următorul",
+    "back": "Înapoi"
+  },
+  "bus_company_admin": {
+    "title": "Gestionare companii de transport",
+    "approve": "Aprobă",
+    "reject": "Respinge",
+    "approve_registration": "Aprobă înregistrarea",
+    "reject_registration": "Respinge înregistrarea",
+    "send_email": "Trimite email",
+    "view_details": "Vezi detalii",
+    "company_details": "Detalii companie",
+    "contact_info": "Informații de contact",
+    "company_info": "Informații companie",
+    "registration_status": "Statusul înregistrării",
+    "registration_date": "Data înregistrării",
+    "approved_date": "Data aprobării",
+    "rejected_date": "Data respingerii",
+    "all_statuses": "Toate statusurile",
+    "pending": "În așteptare",
+    "approved": "Aprobat",
+    "verified": "Verificat",
+    "rejected": "Respins",
+    "search_placeholder": "Caută după nume, email, număr de înregistrare...",
+    "refresh": "Reîmprospătează",
+    "account_active": "Cont activ",
+    "no_bus_companies_found": "Nu s-au găsit companii de transport",
+    "approve_message": "Sunteți pe cale să aprobați înregistrarea pentru",
+    "approval_email_message": "Un email va fi trimis la adresa cu instrucțiuni pentru a-și configura parola și a accesa contul.",
+    "reject_reason": "Motivul respingerii (Opțional)",
+    "reject_reason_placeholder": "Introduceți motivul respingerii",
+    "reject_reason_description": "Acest motiv va fi inclus în emailul trimis companiei.",
+    "sending_email": "Se trimite emailul...",
+    "approve_send_email": "Aprobă și trimite email",
+    "company": "Companie",
+    "contact": "Contact",
+    "registration": "Înregistrare",
+    "status": "Status",
+    "created": "Creat",
+    "actions": "Acțiuni"
+  },
+  "set_password": {
+    "title": "Configurează parola",
+    "subtitle": "Pentru",
+    "invalid_code": "Cod de aprobare invalid",
+    "invalid_code_message": "Acest cod de aprobare este invalid sau a expirat. Vă rugăm să verificați emailul pentru linkul corect.",
+    "password_set_success": "Parolă configurată cu succes",
+    "password_set_message": "Contul companiei dvs. de transport a fost creat. Veți fi redirecționat către pagina de autentificare.",
+    "new_password": "Parolă nouă",
+    "new_password_placeholder": "Introduceți o parolă sigură",
+    "password_requirements": "Parola trebuie să aibă cel puțin 8 caractere",
+    "confirm_password": "Confirmă parola",
+    "confirm_password_placeholder": "Confirmați parola",
+    "activate_account": "Configurează parola și activează contul",
+    "password_match_error": "Parolele nu coincid",
+    "password_length_error": "Parola trebuie să aibă cel puțin 8 caractere",
+    "go_to_login": "Mergi la autentificare",
+    "return_to_home": "Înapoi la pagina principală"
+  },
+  "about_company": {
+    "title": "Despre Compania Noastră",
+    "section1": {
+      "title": "Misiunea Noastră",
+      "content": "Ne dedicăm să oferim servicii de transport sigur și confortabil pentru toți călătorii din Moldova, conectând comunitățile și facilitând călătoriile."
+    },
+    "section2": {
+      "title": "Valorile Noastre",
+      "content": "Calitate, siguranță și confort sunt valorile fundamentale care ghidează fiecare aspect al serviciilor noastre."
+    },
+    "section3": {
+      "title": "Experiență",
+      "content": "Cu ani de experiență în domeniul transportului, ne-am construit o reputație solidă bazată pe încrederea clienților noștri."
+    }
+  },
+  "press": {
+    "title": "Centrul de presă",
+    "subtitle": "Ultimele știri, comunicate de presă și resurse media despre GoMoldova",
+    "section1": {
+      "title": "Contact pentru presă",
+      "content": "Pentru solicitări din partea presei, interviuri sau informații suplimentare, vă rugăm să contactați:",
+      "department": "Departamentul de Relații Publice",
+      "spokesperson": "Purtător de cuvânt",
+      "spokesperson_name": "Elena Popescu, Director de Comunicare"
+    },
+    "section2": {
+      "title": "Comunicate de presă",
+      "release1": {
+        "title": "GoMoldova lansează oficial platforma de ride-sharing în Republica Moldova",
+        "content": "Astăzi, GoMoldova a lansat oficial prima platformă de ride-sharing dedicată Republicii Moldova, conectând șoferi și pasageri pentru călătorii mai eficiente și accesibile în întreaga țară."
+      },
+      "release2": {
+        "title": "GoMoldova atinge pragul de 5.000 de utilizatori în prima lună de la lansare",
+        "content": "La doar o lună de la lansarea oficială, GoMoldova a atins pragul de 5.000 de utilizatori înregistrați, depășind estimările inițiale și demonstrând nevoia acută pentru servicii de mobilitate partajată în Republica Moldova."
+      },
+      "read_more": "Citește comunicatul complet"
+    },
+    "section3": {
+      "title": "Resurse media",
+      "press_kit": "Kit de presă",
+      "press_kit_content": "Descărcați kit-ul nostru de presă care include informații despre companie, statistici, fotografii și materiale grafice pentru utilizare în articole și reportaje.",
+      "download_kit": "Descarcă kit-ul de presă (ZIP, 25MB)",
+      "brand_assets": "Logo și brand assets",
+      "brand_assets_content": "Accesați logo-urile noastre oficiale, ghidul de brand și alte elemente vizuale pentru utilizare în materiale media.",
+      "download_assets": "Descarcă brand assets (ZIP, 10MB)"
+    },
+    "section4": {
+      "title": "Abonează-te la comunicatele noastre de presă",
+      "content": "Primește cele mai recente știri și actualizări despre GoMoldova direct în inbox-ul tău",
+      "email_placeholder": "Adresa ta de email",
+      "subscribe": "Abonează-te"
+    }
+  },
+  "help": {
+    "title": "Centrul de ajutor",
+    "subtitle": "Găsiți răspunsuri la întrebările frecvente și aflați cum să utilizați platforma GoMoldova",
+    "quick_actions": {
+      "email": {
+        "title": "Email",
+        "content": "Trimiteți-ne un email pentru asistență"
+      },
+      "phone": {
+        "title": "Telefon",
+        "content": "Sunați-ne pentru suport imediat"
+      },
+      "chat": {
+        "title": "Chat",
+        "content": "Discutați cu un agent în timp real",
+        "button": "Începeți chat-ul"
+      },
+      "hours": {
+        "title": "Program",
+        "content": "Disponibili 24/7 pentru asistență"
+      }
+    },
+    "faq": {
+      "title": "Întrebări frecvente",
+      "q1": "Cum îmi creez un cont pe GoMoldova?",
+      "a1": "Pentru a crea un cont pe GoMoldova, accesați pagina principală și faceți clic pe butonul 'Autentificare' din colțul din dreapta sus. Apoi selectați opțiunea 'Înregistrează-te' și urmați pașii pentru a vă crea contul.",
+      "q2": "Cum pot rezerva o călătorie?",
+      "a2": "După ce ați găsit o călătorie care vi se potrivește, faceți clic pe butonul 'Vezi detalii' pentru a vedea mai multe informații. Dacă doriți să rezervați un loc, faceți clic pe butonul 'Rezervă loc'.",
+      "q3": "Cum pot anula o rezervare?",
+      "a3": "Puteți anula o rezervare accesând secțiunea 'Călătoriile mele' și selectând călătoria pe care doriți să o anulați. Nu există penalizări pentru anulări.",
+      "q4": "Cum se efectuează plățile?",
+      "a4": "În prezent, plățile se efectuează direct între pasager și șofer, în numerar, la începutul sau sfârșitul călătoriei."
+    },
+    "categories": {
+      "booking": {
+        "title": "Rezervări",
+        "content": "Aflați cum să rezervați și să gestionați călătoriile dvs.",
+        "link": "Ghid de rezervare"
+      },
+      "safety": {
+        "title": "Siguranță",
+        "content": "Informații despre măsurile noastre de siguranță și protecție.",
+        "link": "Aflați mai multe"
+      },
+      "payment": {
+        "title": "Plăți",
+        "content": "Informații despre metodele de plată și procesul de plată.",
+        "link": "Metode de plată"
+      }
+    }
+  },
+  "safety": {
+    "title": "Siguranța pe GoMoldova",
+    "subtitle": "Siguranța comunității noastre este prioritatea noastră principală. Iată cum lucrăm pentru a menține platforma sigură pentru toți utilizatorii.",
+    "overview": {
+      "title": "Prezentare generală a siguranței",
+      "content": "La GoMoldova, ne dedicăm să oferim o experiență de călătorie sigură și confortabilă pentru toți utilizatorii noștri. Implementăm măsuri de siguranță riguroase și procese de verificare pentru a asigura că platforma noastră rămâne un spațiu sigur pentru toți."
+    },
+    "guidelines": {
+      "verification": {
+        "title": "Verificarea utilizatorilor",
+        "content": "Procesul nostru de verificare asigură că toți utilizatorii sunt autentici și de încredere.",
+        "points": {
+          "identity": "Verificare identitate prin email și documente",
+          "background": "Verificare antecedente pentru șoferi",
+          "reviews": "Sistem de evaluări și recenzii"
+        }
+      },
+      "payment": {
+        "title": "Securitate plăți",
+        "content": "Procesul nostru de plată este proiectat pentru a proteja atât șoferii, cât și pasagerii.",
+        "points": {
+          "secure": "Plăți securizate și înregistrate",
+          "transparent": "Proces transparent de plată",
+          "protection": "Protecție împotriva fraudelor"
+        }
+      }
+    },
+    "tips": {
+      "title": "Sfaturi de siguranță",
+      "before": {
+        "title": "Înainte de călătorie",
+        "points": {
+          "verify": "Verificați profilul și recenziile șoferului",
+          "review": "Citiți și revizuiți detaliile călătoriei",
+          "share": "Împărtășiți detaliile călătoriei cu cineva de încredere"
+        }
+      },
+      "during": {
+        "title": "În timpul călătoriei",
+        "points": {
+          "belt": "Purtați centura de siguranță",
+          "alert": "Rămâneți vigilent și atent",
+          "comfort": "Comunicați dacă vă simțiți neconfortabil"
+        }
+      },
+      "after": {
+        "title": "După călătorie",
+        "points": {
+          "rate": "Evaluați experiența călătoriei",
+          "report": "Raportați orice incident sau comportament necorespunzător",
+          "feedback": "Oferiți feedback pentru îmbunătățirea serviciului"
+        }
+      }
+    },
+    "emergency": {
+      "title": "Suport de urgență",
+      "content": "Dacă vă confruntați cu o situație de urgență sau aveți nevoie de asistență imediată, echipa noastră este disponibilă 24/7.",
+      "call": "Sunați acum",
+      "email": "Trimiteți email"
+    }
+  }
+} 

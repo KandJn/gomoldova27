@@ -1,0 +1,16 @@
+\n\n-- Drop existing problematic policies\nDROP POLICY IF EXISTS "Users can create bookings" ON bookings;
+\nDROP POLICY IF EXISTS "Users can view their own bookings" ON bookings;
+\nDROP POLICY IF EXISTS "Drivers can manage bookings" ON bookings;
+\n\n-- Create simplified booking policies\nCREATE POLICY "Users can create bookings"\n  ON bookings FOR INSERT\n  TO authenticated\n  WITH CHECK (\n    auth.uid() = user_id AND\n    EXISTS (\n      SELECT 1\n      FROM trips t\n      WHERE t.id = trip_id\n      AND t.driver_id != auth.uid()\n      AND t.seats > (\n        SELECT COUNT(*)\n        FROM bookings b\n        WHERE b.trip_id = t.id\n        AND b.status = 'accepted'\n      )\n    )\n  );
+\n\nCREATE POLICY "Users can view bookings"\n  ON bookings FOR SELECT\n  TO authenticated\n  USING (\n    auth.uid() = user_id OR\n    EXISTS (\n      SELECT 1 FROM trips\n      WHERE id = trip_id\n      AND driver_id = auth.uid()\n    )\n  );
+\n\nCREATE POLICY "Drivers can update bookings"\n  ON bookings FOR UPDATE\n  TO authenticated\n  USING (\n    EXISTS (\n      SELECT 1 FROM trips\n      WHERE id = trip_id\n      AND driver_id = auth.uid()\n    )\n  )\n  WITH CHECK (\n    status IN ('accepted', 'rejected', 'cancelled')\n  );
+\n\n-- Add indexes for better performance\nCREATE INDEX IF NOT EXISTS idx_bookings_trip_status ON bookings(trip_id, status);
+\nCREATE INDEX IF NOT EXISTS idx_bookings_user_status ON bookings(user_id, status);
+\nCREATE INDEX IF NOT EXISTS idx_trips_cities ON trips(from_city, to_city);
+\n\n-- Ensure city columns exist and are populated\nDO $$ \nBEGIN\n  -- Add city columns if they don't exist\n  IF NOT EXISTS (\n    SELECT 1 FROM information_schema.columns \n    WHERE table_name = 'trips' AND column_name = 'from_city'\n  ) THEN\n    ALTER TABLE trips ADD COLUMN from_city text;
+\n  END IF;
+\n\n  IF NOT EXISTS (\n    SELECT 1 FROM information_schema.columns \n    WHERE table_name = 'trips' AND column_name = 'to_city'\n  ) THEN\n    ALTER TABLE trips ADD COLUMN to_city text;
+\n  END IF;
+\n\n  -- Update any NULL city values from legacy columns\n  UPDATE trips \n  SET from_city = COALESCE(from_city, "from"),\n      to_city = COALESCE(to_city, "to")\n  WHERE from_city IS NULL OR to_city IS NULL;
+\nEND $$;
+;

@@ -1,0 +1,17 @@
+\n\n-- Drop all existing problematic policies\nDO $$ \nBEGIN\n  DROP POLICY IF EXISTS "Anyone can view trips" ON trips;
+\n  DROP POLICY IF EXISTS "Trips are viewable by everyone" ON trips;
+\n  DROP POLICY IF EXISTS "Users with complete profiles can create trips" ON trips;
+\n  DROP POLICY IF EXISTS "Everyone can view trip cities" ON trips;
+\n  DROP POLICY IF EXISTS "Drivers can create trips with cities" ON trips;
+\n  DROP POLICY IF EXISTS "Drivers can see full addresses" ON trips;
+\n  DROP POLICY IF EXISTS "Address visibility" ON trips;
+\nEND $$;
+\n\n-- Create new simplified policies\nCREATE POLICY "trips_select"\n  ON trips FOR SELECT\n  TO public\n  USING (true);
+\n\nCREATE POLICY "trips_insert"\n  ON trips FOR INSERT\n  TO authenticated\n  WITH CHECK (\n    auth.uid() = driver_id AND\n    EXISTS (\n      SELECT 1 FROM profiles\n      WHERE id = auth.uid()\n      AND is_driver = true\n    )\n  );
+\n\nCREATE POLICY "trips_update"\n  ON trips FOR UPDATE\n  TO authenticated\n  USING (auth.uid() = driver_id)\n  WITH CHECK (auth.uid() = driver_id);
+\n\nCREATE POLICY "trips_delete"\n  ON trips FOR DELETE\n  TO authenticated\n  USING (auth.uid() = driver_id);
+\n\n-- Add indexes for better performance if they don't exist\nCREATE INDEX IF NOT EXISTS idx_trips_search \n  ON trips(from_city, to_city, date);
+\n\nCREATE INDEX IF NOT EXISTS idx_trips_driver \n  ON trips(driver_id);
+\n\nCREATE INDEX IF NOT EXISTS idx_trips_date_time \n  ON trips(date, time);
+\n\n-- Refresh materialized view\nREFRESH MATERIALIZED VIEW trip_seats;
+;

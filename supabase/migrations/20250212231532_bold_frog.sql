@@ -1,0 +1,4 @@
+\n\n-- Drop existing booking policy\nDROP POLICY IF EXISTS "Users can create bookings" ON bookings;
+\n\n-- Create new booking policy\nCREATE POLICY "Users can create bookings"\n  ON bookings FOR INSERT\n  TO authenticated\n  WITH CHECK (\n    -- User must not be the trip driver\n    auth.uid() = user_id AND\n    NOT EXISTS (\n      SELECT 1\n      FROM trips t\n      WHERE t.id = trip_id\n      AND t.driver_id = auth.uid()\n    ) AND\n    -- Trip must have available seats\n    EXISTS (\n      SELECT 1\n      FROM trips t\n      LEFT JOIN (\n        SELECT trip_id, COUNT(*) as accepted_count\n        FROM bookings\n        WHERE status = 'accepted'\n        GROUP BY trip_id\n      ) b ON b.trip_id = t.id\n      WHERE t.id = trip_id\n      AND (t.seats > COALESCE(b.accepted_count, 0))\n    )\n  );
+\n\n-- Add index for performance\nCREATE INDEX IF NOT EXISTS idx_trips_driver_id ON trips(driver_id);
+;

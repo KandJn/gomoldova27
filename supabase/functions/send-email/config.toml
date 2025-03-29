@@ -1,0 +1,5 @@
+[global]
+cors = true
+cors_origins = ["http://localhost:5173", "http://localhost:3000", "https://gomoldova.md"]
+cors_headers = ["authorization", "x-client-info", "apikey", "content-type"]
+cors_methods = ["POST", "OPTIONS"] 

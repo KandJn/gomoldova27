@@ -1,0 +1,16 @@
+\n\n-- Add verification fields to profiles if they don't exist\nDO $$ \nBEGIN\n  -- Add verification fields\n  ALTER TABLE profiles\n    ADD COLUMN IF NOT EXISTS verification_status text DEFAULT 'unverified',\n    ADD COLUMN IF NOT EXISTS verification_notes text,\n    ADD COLUMN IF NOT EXISTS verified_at timestamptz,\n    ADD COLUMN IF NOT EXISTS verified_by uuid REFERENCES auth.users(id);
+\n\n  -- Add constraint for verification status\n  ALTER TABLE profiles \n    DROP CONSTRAINT IF EXISTS check_verification_status;
+\n    \n  ALTER TABLE profiles \n    ADD CONSTRAINT check_verification_status \n    CHECK (verification_status IN ('unverified', 'pending', 'verified', 'rejected'));
+\nEND $$;
+\n\n-- Create index for verification status\nCREATE INDEX IF NOT EXISTS idx_profiles_verification_status \n  ON profiles(verification_status);
+\n\n-- Create function to verify user\nCREATE OR REPLACE FUNCTION verify_user(\n  user_id uuid,\n  notes text DEFAULT NULL\n)\nRETURNS void AS $$\nBEGIN\n  -- Check if user is admin\n  IF auth.email() = 'asassin.damian@gmail.com' THEN\n    UPDATE profiles\n    SET \n      verification_status = 'verified',\n      verification_notes = notes,\n      verified_at = now(),\n      verified_by = auth.uid()\n    WHERE id = user_id;
+\n  ELSE\n    RAISE EXCEPTION 'Unauthorized';
+\n  END IF;
+\nEND;
+\n$$ LANGUAGE plpgsql SECURITY DEFINER;
+\n\n-- Create function to reject user verification\nCREATE OR REPLACE FUNCTION reject_user_verification(\n  user_id uuid,\n  notes text DEFAULT NULL\n)\nRETURNS void AS $$\nBEGIN\n  -- Check if user is admin\n  IF auth.email() = 'asassin.damian@gmail.com' THEN\n    UPDATE profiles\n    SET \n      verification_status = 'rejected',\n      verification_notes = notes,\n      verified_at = NULL,\n      verified_by = NULL\n    WHERE id = user_id;
+\n  ELSE\n    RAISE EXCEPTION 'Unauthorized';
+\n  END IF;
+\nEND;
+\n$$ LANGUAGE plpgsql SECURITY DEFINER;
+;

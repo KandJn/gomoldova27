@@ -212,15 +212,54 @@
     "noAccount": "Nu ai cont? Înregistrează-te",
     "haveAccount": "Ai deja cont? Autentifică-te",
     "enterEmail": "Introdu adresa ta de email",
+    "confirmPassword": "Confirmă parola",
+    "register": {
+      "checkYourEmail": "Verificați emailul",
+      "checkEmail": "Vă rugăm să verificați emailul",
+      "confirmationEmailSent": "Am trimis un email de confirmare la {{email}}. Vă rugăm să verificați inbox-ul și să faceți clic pe link-ul de confirmare pentru a finaliza înregistrarea.",
+      "resendEmail": "Retrimite emailul de confirmare",
+      "emailResent": "Emailul de confirmare a fost retrimis cu succes",
+      "checkSpamFolder": "Dacă nu vedeți emailul, vă rugăm să verificați folderul spam",
+      "noPendingRegistration": "Nu există nicio înregistrare în așteptare",
+      "startRegistration": "Începe înregistrarea",
+      "emailNotFound": "Emailul nu a fost găsit. Vă rugăm să începeți înregistrarea din nou.",
+      "passwordMismatch": "Parolele nu se potrivesc",
+      "invalidEmail": "Adresă de email invalidă",
+      "passwordTooShort": "Parola trebuie să aibă cel puțin 6 caractere",
+      "emailRateLimit": "Prea multe încercări. Vă rugăm să încercați din nou mai târziu.",
+      "error": "A apărut o eroare. Vă rugăm să încercați din nou.",
+      "createPassword": "Creați parola",
+      "passwordDescription": "Alegeți o parolă puternică pentru contul dvs.",
+      "submit": "Creați contul"
+    },
+    "success": "Cont creat cu succes!",
     "resetPassword": {
-      "title": "Resetare Parolă",
-      "description": "Introduceți adresa de email și vă vom trimite un link pentru resetarea parolei.",
+      "title": "Resetare parolă",
+      "description": "Introduceți adresa de email pentru a primi un link de resetare a parolei",
       "email": "Email",
-      "enterEmail": "Introduceți emailul",
+      "enterEmail": "Introduceți adresa de email",
       "submit": "Trimite Link Resetare",
-      "success": "Link-ul de resetare a parolei a fost trimis! Vă rugăm să verificați emailul.",
-      "error": "Nu s-a putut trimite link-ul de resetare. Vă rugăm să încercați din nou.",
-      "userNotFound": "Nu s-a găsit niciun cont cu această adresă de email. Vă rugăm să verificați emailul sau să vă înregistrați pentru un cont nou."
+      "success": "Link-ul de resetare a parolei a fost trimis cu succes",
+      "error": "A apărut o eroare la trimiterea link-ului de resetare",
+      "wait": "Vă rugăm să așteptați {{seconds}} secunde înainte de a încerca din nou",
+      "sent": {
+        "title": "Link de resetare trimis",
+        "description": "Am trimis un email cu instrucțiuni pentru resetarea parolei. Vă rugăm să verificați căsuța de poștă și să urmați link-ul pentru a vă reseta parola.",
+        "backToLogin": "Înapoi la autentificare"
+      }
+    },
+    "resetPasswordConfirm": {
+      "title": "Setați noua parolă",
+      "description": "Vă rugăm să introduceți noua parolă",
+      "newPassword": "Noua parolă",
+      "enterNewPassword": "Introduceți noua parolă",
+      "confirmPassword": "Confirmați parola",
+      "submit": "Actualizează parola",
+      "success": "Parola a fost actualizată cu succes",
+      "error": "A apărut o eroare la actualizarea parolei",
+      "passwordsDoNotMatch": "Parolele nu se potrivesc",
+      "passwordTooShort": "Parola trebuie să aibă cel puțin 6 caractere",
+      "invalidToken": "Link-ul de resetare a parolei este invalid sau a expirat"
     },
     "updatePassword": {
       "title": "Actualizare Parolă",
@@ -235,7 +274,8 @@
       "passwordsDoNotMatch": "Parolele nu se potrivesc",
       "passwordTooShort": "Parola trebuie să aibă cel puțin 6 caractere",
       "invalidToken": "Link-ul de resetare este invalid sau a expirat"
-    }
+    },
+    "createPassword": "Creați parola"
   },
   "common": {
     "loading": "Se încarcă...",
@@ -249,7 +289,9 @@
     "back": "Înapoi",
     "next": "Următorul",
     "submit": "Trimite",
-    "backToHome": "Înapoi la Pagina Principală"
+    "backToHome": "Înapoi la Pagina Principală",
+    "confirm": "Confirmă",
+    "close": "Închide"
   },
   "bus_company_registration": {
     "title": "Înregistrează-ți compania de transport",

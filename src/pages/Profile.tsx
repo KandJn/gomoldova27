@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useAuthStore } from '../lib/store';
 import { supabase } from '../lib/supabase';
-import { Camera, Loader2, MapPin, Phone, Mail, Globe, Shield, Clock, Car, CreditCard, Bell, User, Wrench, Calendar } from 'lucide-react';
+import { Camera, Loader2, MapPin, Phone, Mail, Globe, Shield, Clock, Car, CreditCard, Bell, User, Wrench, Calendar, Trash2 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useAvatar } from '../contexts/AvatarContext';
 import { format } from 'date-fns';
 import { ro } from 'date-fns/locale';
+import { DeleteAccountModal } from '../components/DeleteAccountModal';
 
 interface Profile {
   id: string;
@@ -157,6 +158,7 @@ export function Profile() {
     year: false
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   // Add useEffect for initial profile fetch
   useEffect(() => {
@@ -1276,6 +1278,15 @@ export function Profile() {
                   {profile?.updated_at ? format(new Date(profile.updated_at), 'dd MMMM yyyy', { locale: ro }) : 'N/A'}
                 </p>
               </div>
+              <div className="pt-4 border-t">
+                <button
+                  onClick={() => setShowDeleteModal(true)}
+                  className="flex items-center text-red-600 hover:text-red-700"
+                >
+                  <Trash2 className="h-5 w-5 mr-2" />
+                  Șterge cont
+                </button>
+              </div>
             </div>
           </div>
 
@@ -1369,6 +1380,12 @@ export function Profile() {
           </div>
         </div>
       </div>
+
+      {/* Delete Account Modal */}
+      <DeleteAccountModal
+        isOpen={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+      />
     </div>
   );
 }

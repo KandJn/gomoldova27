@@ -65,6 +65,8 @@ import { BusCompanyRegistration } from './pages/BusCompanyRegistration';
 import { BusCompanyRegistrations } from './pages/admin/BusCompanyRegistrations';
 import { TestLogin } from './pages/TestLogin';
 import { ResetPassword } from './pages/auth/ResetPassword';
+import { ResetPasswordConfirm } from './pages/auth/ResetPasswordConfirm';
+import { ResetPasswordSent } from './pages/auth/ResetPasswordSent';
 import { createClient } from '@supabase/supabase-js';
 import { NotificationsProvider } from './contexts/NotificationsContext';
 import { AvatarProvider, useAvatar } from './contexts/AvatarContext';
@@ -95,6 +97,7 @@ import { BusCompanyGuard } from './components/bus-company/BusCompanyGuard';
 import { SetPassword } from './pages/bus-company/SetPassword';
 import { PageTransition } from './components/PageTransition';
 import { UpdatePassword } from './pages/auth/UpdatePassword';
+import { Confirm } from './pages/auth/Confirm';
 
 // Move handleOpenChat outside and make it a standalone function
 const handleOpenChat = (setChatRecipientId: (id: string) => void, setIsChatModalOpen: (open: boolean) => void) => (userId: string) => {
@@ -578,6 +581,7 @@ function App() {
       element: <Layout />,
       children: [
         { index: true, element: <HomePage /> },
+        { path: 'login', element: <TestLogin /> },
         { path: 'trips', element: <TripsListing /> },
         { path: 'trips/my', element: <Navigate to="/my-trips" replace /> },
         { path: 'my-trips', element: <MyTrips /> },
@@ -651,7 +655,10 @@ function App() {
         { path: 'how-it-works', element: <HowItWorks /> },
         { path: 'about-company', element: <AboutCompany /> },
         { path: 'reset-password', element: <ResetPassword /> },
+        { path: 'reset-password/sent', element: <ResetPasswordSent /> },
+        { path: 'reset-password/confirm', element: <ResetPasswordConfirm /> },
         { path: 'update-password', element: <UpdatePassword /> },
+        { path: 'auth/confirm', element: <Confirm /> },
       ],
     },
   ], {

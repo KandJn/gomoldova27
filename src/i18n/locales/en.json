@@ -197,7 +197,25 @@
   },
   "auth": {
     "login": "Login",
-    "register": "Register",
+    "register": {
+      "checkYourEmail": "Check your email",
+      "checkEmail": "Please check your email",
+      "confirmationEmailSent": "We've sent a confirmation email to {{email}}. Please check your inbox and click the confirmation link to complete your registration.",
+      "resendEmail": "Resend confirmation email",
+      "emailResent": "Confirmation email has been resent successfully",
+      "checkSpamFolder": "If you don't see the email, please check your spam folder",
+      "noPendingRegistration": "No pending registration found",
+      "startRegistration": "Start registration",
+      "emailNotFound": "Email not found. Please start registration again.",
+      "passwordMismatch": "Passwords do not match",
+      "invalidEmail": "Invalid email address",
+      "passwordTooShort": "Password must be at least 6 characters",
+      "emailRateLimit": "Too many attempts. Please try again later.",
+      "error": "An error occurred. Please try again.",
+      "createPassword": "Create your password",
+      "passwordDescription": "Choose a strong password for your account",
+      "submit": "Create Account"
+    },
     "email": "Email",
     "password": "Password",
     "name": "Name",
@@ -214,6 +232,20 @@
       "success": "Password reset link sent! Please check your email.",
       "error": "Failed to send reset link. Please try again.",
       "userNotFound": "No account found with this email address. Please check your email or sign up for a new account."
+    },
+    "resetPasswordConfirm": {
+      "title": "Set New Password",
+      "description": "Please enter your new password below.",
+      "newPassword": "New Password",
+      "confirmPassword": "Confirm Password",
+      "enterNewPassword": "Enter new password",
+      "confirmNewPassword": "Confirm new password",
+      "submit": "Update Password",
+      "success": "Password has been updated successfully!",
+      "error": "Failed to update password. Please try again.",
+      "passwordsDoNotMatch": "Passwords do not match",
+      "passwordTooShort": "Password must be at least 6 characters",
+      "invalidToken": "Password reset link is invalid or has expired"
     },
     "updatePassword": {
       "title": "Change Password",

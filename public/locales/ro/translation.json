@@ -1,0 +1,52 @@
+{
+  "auth": {
+    "resetPassword": {
+      "title": "Resetare parolă",
+      "description": "Introduceți adresa de email pentru a primi un link de resetare a parolei",
+      "emailLabel": "Adresă de email",
+      "emailPlaceholder": "Introduceți adresa de email",
+      "submit": "Trimite link de resetare",
+      "backToLogin": "Înapoi la autentificare",
+      "success": "Link-ul de resetare a parolei a fost trimis cu succes",
+      "error": "A apărut o eroare la trimiterea link-ului de resetare",
+      "wait": "Vă rugăm să așteptați {{seconds}} secunde înainte de a încerca din nou",
+      "sent": {
+        "title": "Link de resetare trimis",
+        "description": "Am trimis un email cu instrucțiuni pentru resetarea parolei. Vă rugăm să verificați căsuța de poștă și să urmați link-ul pentru a vă reseta parola.",
+        "backToLogin": "Înapoi la autentificare"
+      }
+    },
+    "resetPasswordConfirm": {
+      "title": "Setare parolă nouă",
+      "description": "Vă rugăm să introduceți noua parolă",
+      "newPassword": "Parolă nouă",
+      "confirmPassword": "Confirmare parolă",
+      "enterNewPassword": "Introduceți noua parolă",
+      "enterConfirmPassword": "Introduceți din nou parola",
+      "submit": "Actualizează parola",
+      "success": "Parola a fost actualizată cu succes",
+      "error": "A apărut o eroare la actualizarea parolei",
+      "invalidToken": "Link-ul de resetare a parolei este invalid sau a expirat",
+      "passwordsDoNotMatch": "Parolele nu se potrivesc",
+      "passwordTooShort": "Parola trebuie să aibă cel puțin 6 caractere",
+      "samePassword": "Noua parolă trebuie să fie diferită de parola actuală"
+    },
+    "resetPasswordSent": {
+      "title": "Link de resetare trimis",
+      "description": "Am trimis un email cu instrucțiuni pentru resetarea parolei. Vă rugăm să verificați căsuța de poștă și să urmați link-ul pentru a vă reseta parola.",
+      "backToLogin": "Înapoi la autentificare"
+    }
+  },
+  "common": {
+    "loading": "Se încarcă...",
+    "submit": "Trimite",
+    "cancel": "Anulează",
+    "back": "Înapoi",
+    "next": "Următorul",
+    "save": "Salvează",
+    "delete": "Șterge",
+    "edit": "Editează",
+    "confirm": "Confirmă",
+    "close": "Închide"
+  }
+} 

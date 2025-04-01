@@ -11,7 +11,7 @@ if (!i18n.isInitialized) {
     .use(LanguageDetector)
     .use(initReactI18next)
     .init({
-      debug: import.meta.env.DEV, // Only enable debug in development
+      debug: true, // Enable debug to see what's happening with translations
       fallbackLng: 'ro',
       supportedLngs: ['ro', 'ru', 'en'],
       resources: {

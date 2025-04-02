@@ -4,9 +4,9 @@ import { TripCard } from '../components/TripCard';
 import { TripFilters } from '../components/TripFilters';
 import { Car, Bus } from 'lucide-react';
 import toast from 'react-hot-toast';
-import { useDebug } from '../contexts/DebugContext';
 import type { Trip as TripType } from '../lib/types';
 import { useAuthStore } from '../lib/store';
+import { useTranslation } from 'react-i18next';
 
 interface SearchParams {
   fromCity: string;
@@ -30,6 +30,7 @@ interface Filters {
 }
 
 export function TripsListing() {
+  const { t } = useTranslation();
   const [trips, setTrips] = useState<TripType[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isShowingAllTrips, setIsShowingAllTrips] = useState(false);
@@ -52,7 +53,6 @@ export function TripsListing() {
       pets: false
     }
   });
-  const { setDebugData } = useDebug();
   const { user } = useAuthStore();
 
   useEffect(() => {
@@ -334,20 +334,20 @@ export function TripsListing() {
 
   const getHeaderText = () => {
     if (searchParams.fromCity && searchParams.toCity) {
-      return `${searchParams.fromCity} → ${searchParams.toCity}`;
+      return t('trips.tripsBetween', { from: searchParams.fromCity, to: searchParams.toCity });
     }
     if (searchParams.fromCity) {
-      return `Călătorii din ${searchParams.fromCity}`;
+      return t('trips.tripsFrom', { city: searchParams.fromCity });
     }
     if (searchParams.toCity) {
-      return `Călătorii spre ${searchParams.toCity}`;
+      return t('trips.tripsTo', { city: searchParams.toCity });
     }
-    return 'Toate călătoriile disponibile';
+    return t('trips.allTrips');
   };
 
   const getSubHeaderText = () => {
     if (isShowingAllTrips) {
-      return 'Nu au fost găsite călătorii pentru criteriile selectate. Afișăm toate călătoriile disponibile.';
+      return t('trips.showingAll');
     }
     return '';
   };
@@ -382,6 +382,7 @@ export function TripsListing() {
           {isLoading ? (
             <div className="flex justify-center">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+              <span className="ml-2 text-gray-600">{t('trips.loading')}</span>
             </div>
           ) : trips.length > 0 ? (
             <div className="grid grid-cols-1 gap-6">
@@ -391,7 +392,7 @@ export function TripsListing() {
             </div>
           ) : (
             <div className="text-center py-12">
-              <p className="text-gray-500 text-lg">Nu au fost găsite călătorii care să corespundă criteriilor de căutare.</p>
+              <p className="text-gray-500 text-lg">{t('trips.noResults')}</p>
             </div>
           )}
         </div>

@@ -41,7 +41,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
         
         if (data.user) {
           setUser(data.user);
-          toast.success('Login successful!');
+          toast.success(t('auth.loginSuccess'));
         }
         
         onClose();
@@ -50,7 +50,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
         // Add your registration logic here
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      setError(err instanceof Error ? err.message : t('auth.error'));
     } finally {
       setIsLoading(false);
     }
@@ -140,7 +140,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
                 onClick={handleForgotPassword}
                 className="text-base text-blue-600 hover:text-blue-700"
               >
-                {t('auth.forgotPassword')}
+                {t('auth.forgotPassword.title')}
               </button>
             </div>
 

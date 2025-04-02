@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { MapPin, Calendar, Clock, Users, Star, ArrowRight, Car, Bus, Cigarette, Music, Package, MessageCircle } from 'lucide-react';
 import type { Trip } from '../lib/types';
@@ -10,26 +11,21 @@ interface TripCardProps {
 }
 
 export function TripCard({ trip }: TripCardProps) {
+  const { t } = useTranslation();
+  
   // Format date with capitalized first letters
-  const formattedDate = format(new Date(trip.departure_date), 'eeee, d MMMM', { locale: ro })
-    .split(' ')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
+  const formattedDate = format(new Date(trip.departure_date), 'EEEE, d MMMM yyyy', { locale: ro });
+  const formattedTime = trip.departure_time;
 
-  // Format time to HH:mm
-  const formattedTime = trip.departure_time.split(':').slice(0, 2).join(':');
-
-  const VehicleIcon = trip.vehicle_type === 'car' ? Car : Bus;
+  const VehicleIcon = trip.vehicle_type === 'bus' ? Bus : Car;
 
   return (
     <Link
       to={`/trip/${trip.id}`}
       className="block bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden border-2 border-gray-100 hover:border-blue-200 group"
     >
-      {/* Top Section - Route and Time */}
-      <div className="bg-gray-50 p-5 border-b border-gray-100">
-        <div className="flex items-start gap-4">
-          {/* Route and Details */}
+      <div className="p-6">
+        <div className="flex items-start justify-between">
           <div className="flex-1 min-w-0">
             {/* Cities */}
             <div className="flex items-center mb-4">
@@ -64,38 +60,34 @@ export function TripCard({ trip }: TripCardProps) {
             <p className="text-2xl font-bold text-blue-600 group-hover:text-blue-700">
               {trip.price} <span className="text-base font-normal">MDL</span>
             </p>
-            <p className="text-sm text-blue-600/80">per loc</p>
+            <p className="text-sm text-blue-600/80">{t('trips.tripCard.perSeat')}</p>
           </div>
         </div>
-      </div>
 
-      {/* Middle Section - Driver Info */}
-      <div className="p-5 border-b border-gray-100">
-        <div className="flex items-start justify-between gap-6">
-          {/* Driver Info */}
-          <div className="flex items-center space-x-4">
+        {/* Middle Section - Driver Info */}
+        <div className="mt-6 flex items-center justify-between">
+          <div className="flex items-center">
             <img
-              src={trip.driver.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(trip.driver.email)}&background=e5e7eb&color=4b5563`}
-              alt={trip.driver.email}
-              className="w-14 h-14 rounded-full border-2 border-gray-100"
+              src={trip.driver.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(trip.driver.full_name)}`}
+              alt={trip.driver.full_name}
+              className="h-10 w-10 rounded-full"
             />
-            <div>
-              <p className="text-lg font-medium text-gray-900">
-                {trip.driver.full_name || trip.driver.email}
+            <div className="ml-3">
+              <p className="text-sm font-medium text-gray-900">{trip.driver.full_name}</p>
+              <p className="text-sm text-gray-500">
+                {trip.available_seats > 0 
+                  ? t('trips.tripCard.availableSeats', { count: trip.available_seats })
+                  : t('trips.tripCard.noSeats')}
               </p>
-              <div className="flex items-center mt-1">
-                <Star className="h-4 w-4 text-yellow-400" />
-                <span className="text-sm text-gray-600 ml-1">4.8 • {trip.bookings.length} călătorii</span>
-              </div>
             </div>
           </div>
-
-          {/* Seats Badge */}
-          <div className="flex items-center px-4 py-2 bg-green-50 rounded-lg">
-            <Users className="h-5 w-5 text-green-600 mr-2" />
-            <span className="text-base font-medium text-green-700">
-              {trip.available_seats} {trip.available_seats === 1 ? 'loc disponibil' : 'locuri disponibile'}
-            </span>
+          <div className="flex space-x-3">
+            <button className="px-4 py-2 text-sm font-medium text-blue-600 hover:text-blue-700">
+              {t('trips.tripCard.viewDetails')}
+            </button>
+            <button className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700">
+              {t('trips.tripCard.bookNow')}
+            </button>
           </div>
         </div>
       </div>
@@ -105,19 +97,19 @@ export function TripCard({ trip }: TripCardProps) {
         <div className="grid grid-cols-2 gap-4">
           <div className="flex items-center text-gray-600">
             <Package className="h-5 w-5 mr-2" />
-            <span className="text-sm">Bagaj mediu permis</span>
+            <span className="text-sm">{t('trips.filters.baggage')}</span>
           </div>
           <div className="flex items-center text-gray-600">
             <MessageCircle className="h-5 w-5 mr-2" />
-            <span className="text-sm">Răspunde în ~2 ore</span>
+            <span className="text-sm">{t('trips.filters.responseTime')}</span>
           </div>
-          <div className="flex items-center text-gray-600" title="Fumatul interzis">
+          <div className="flex items-center text-gray-600" title={t('trips.filters.smokingForbidden')}>
             <Cigarette className="h-5 w-5 mr-2" />
-            <span className="text-sm">Fumatul interzis</span>
+            <span className="text-sm">{t('trips.filters.smokingForbidden')}</span>
           </div>
-          <div className="flex items-center text-gray-600" title="Muzică permisă">
+          <div className="flex items-center text-gray-600" title={t('trips.filters.musicAllowed')}>
             <Music className="h-5 w-5 mr-2" />
-            <span className="text-sm">Muzică permisă</span>
+            <span className="text-sm">{t('trips.filters.musicAllowed')}</span>
           </div>
         </div>
       </div>

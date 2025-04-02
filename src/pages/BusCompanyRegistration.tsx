@@ -300,7 +300,6 @@ export const BusCompanyRegistration = () => {
         .from('bus_companies')
         .insert([
           {
-            user_id: user?.id,
             company_name: formData.company_name,
             registration_number: formData.registration_number,
             tax_id: formData.tax_id || null,
@@ -328,7 +327,6 @@ export const BusCompanyRegistration = () => {
       // Create a notification for admin
       await supabase.from('notifications').insert([
         {
-          user_id: 'admin', // You'll need to replace this with the actual admin user ID
           type: 'bus_company_registration',
           title: 'New Bus Company Registration',
           content: `${formData.company_name} has submitted a registration request`,

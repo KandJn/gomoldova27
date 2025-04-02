@@ -1,6 +1,12 @@
 {
   "nav": {
     "offer_ride": "Offer a ride",
+    "offer_ride_dropdown": {
+      "title": "Offer a ride",
+      "description": "Share your ride and save money",
+      "departure": "Offer a departure ride",
+      "return": "Offer a return ride"
+    },
     "login": "Login",
     "logout": "Logout"
   },
@@ -36,17 +42,26 @@
   },
   "how_it_works": {
     "title": "How It Works",
-    "section1": {
-      "title": "Registration and Login",
-      "content": "Create a new account or log in to your existing account to start using our platform."
+    "subtitle": "A simple 3-step process to start your journey",
+    "step1": {
+      "title": "Find a ride",
+      "description": "Enter your departure location, destination, and date to find available rides"
     },
-    "section2": {
-      "title": "Search and Booking",
-      "content": "Search for available routes, select your desired date and time, and book your seat on the bus."
+    "step2": {
+      "title": "Book your seat",
+      "description": "Choose your preferred ride and book your seat securely through our platform"
     },
-    "section3": {
-      "title": "Confirmation and Notifications",
-      "content": "Receive booking confirmation via email and notifications about journey updates."
+    "step3": {
+      "title": "Travel together",
+      "description": "Meet your driver at the agreed location and enjoy your journey"
+    },
+    "for_drivers": {
+      "title": "For Drivers",
+      "description": "Share your rides and earn money while helping others travel"
+    },
+    "for_passengers": {
+      "title": "For Passengers",
+      "description": "Find affordable and comfortable rides to your destination"
     }
   },
   "popular_destinations": {
@@ -92,6 +107,19 @@
       "notifications": "Notifications",
       "privacy": "Privacy",
       "language": "Language"
+    },
+    "dropdown": {
+      "welcome": "Welcome",
+      "my_profile": "My Profile",
+      "my_trips": "My Trips",
+      "my_bookings": "My Bookings",
+      "messages": "Messages",
+      "notifications": "Notifications",
+      "payments": "Payments",
+      "settings": "Settings",
+      "logout": "Logout",
+      "logout_success": "Successfully logged out",
+      "logout_error": "Error logging out"
     }
   },
   "admin": {
@@ -197,7 +225,23 @@
   },
   "auth": {
     "login": "Login",
+    "email": "Email",
+    "password": "Password",
+    "enterEmail": "Enter your email",
+    "enterPassword": "Enter your password",
+    "forgotPassword": "Forgot password?",
+    "noAccount": "Don't have an account? Sign up",
+    "loginSuccess": "Successfully logged in",
+    "error": "An error occurred during login",
     "register": {
+      "title": "Register",
+      "name": "Name",
+      "email": "Email",
+      "password": "Password",
+      "confirm_password": "Confirm password",
+      "submit": "Register",
+      "have_account": "Already have an account?",
+      "sign_in": "Sign in",
       "checkYourEmail": "Check your email",
       "checkEmail": "Please check your email",
       "confirmationEmailSent": "We've sent a confirmation email to {{email}}. Please check your inbox and click the confirmation link to complete your registration.",
@@ -214,15 +258,65 @@
       "error": "An error occurred. Please try again.",
       "createPassword": "Create your password",
       "passwordDescription": "Choose a strong password for your account",
-      "submit": "Create Account"
+      "email": {
+        "title": "Create a new account",
+        "step": "Step 1 of 5 • Email",
+        "label": "Email address",
+        "placeholder": "name@example.com",
+        "continue": "Continue",
+        "alreadyHaveAccount": "Already have an account?",
+        "login": "Login",
+        "invalidEmail": "Invalid email address",
+        "alreadyExists": "This email is already registered. Please login or use a different email."
+      },
+      "name": {
+        "title": "What's your name?",
+        "step": "Step 2 of 5 • Full Name",
+        "firstName": {
+          "label": "First Name",
+          "placeholder": "Enter your first name",
+          "error": "First name is required"
+        },
+        "lastName": {
+          "label": "Last Name",
+          "placeholder": "Enter your last name",
+          "error": "Last name is required"
+        },
+        "back": "Back",
+        "continue": "Continue"
+      },
+      "gender": {
+        "title": "What's your gender?",
+        "step": "Step 3 of 5 • Gender",
+        "label": "Gender",
+        "male": "Male",
+        "female": "Female",
+        "other": "Other",
+        "back": "Back",
+        "continue": "Continue"
+      },
+      "success": {
+        "title": "Account Created Successfully!",
+        "message": "Thank you for registering with GoMoldova",
+        "checkEmail": "Please check your email to confirm your account. Click the link in the email to verify your email address.",
+        "backToLogin": "Back to Login"
+      },
+      "submit": "Register"
     },
-    "email": "Email",
-    "password": "Password",
     "name": "Name",
-    "forgotPassword": "Forgot password?",
+    "forgotPassword": {
+      "title": "Forgot Password",
+      "description": "Enter your email address and we'll send you a link to reset your password.",
+      "email": "Email",
+      "enterEmail": "Enter your email",
+      "submit": "Send Reset Link",
+      "success": "Password reset link sent! Please check your email.",
+      "error": "Failed to send reset link. Please try again.",
+      "userNotFound": "No account found with this email address. Please check your email or sign up for a new account.",
+      "backToLogin": "Back to Login"
+    },
     "noAccount": "Don't have an account? Register",
     "haveAccount": "Already have an account? Login",
-    "enterEmail": "Enter your email address",
     "resetPassword": {
       "title": "Reset Password",
       "description": "Enter your email address and we'll send you a link to reset your password.",
@@ -260,6 +354,18 @@
       "invalidToken": "Password reset link is invalid or has expired",
       "passwordsDoNotMatch": "Passwords do not match",
       "passwordTooShort": "Password must be at least 6 characters"
+    },
+    "createAccount": "Create account",
+    "login": "Login",
+    "register": "Register",
+    "loginSuccess": "Login successful!",
+    "error": "An error occurred",
+    "callback": {
+      "verifying": "Verifying your email",
+      "pleaseWait": "Please wait while we verify your email address...",
+      "success": "Email verified successfully!",
+      "error": "Error verifying email. Please try again.",
+      "noSession": "No active session found. Please try logging in again."
     }
   },
   "common": {
@@ -283,11 +389,106 @@
       "results_count": "{{count}} trips found"
     },
     "details": {
-      "book_now": "Book now",
-      "price": "Price",
-      "seats": "Available seats",
-      "departure": "Departure",
-      "arrival": "Arrival"
+      "title": "Trip Details",
+      "notFound": "Trip not found",
+      "route": {
+        "from": "Departure",
+        "to": "Arrival",
+        "fastestRoute": "Fastest route"
+      },
+      "price": {
+        "perSeat": "per seat"
+      },
+      "driver": {
+        "title": "Driver",
+        "verified": "Verified",
+        "sendMessage": "Send message"
+      },
+      "company": {
+        "title": "Transport Company"
+      },
+      "seats": {
+        "available": "{{count}} seat available",
+        "availablePlural": "{{count}} seats available"
+      },
+      "car": {
+        "title": "Vehicle"
+      },
+      "amenities": {
+        "baggage": "Medium-sized baggage allowed",
+        "responseTime": "Responds within ~2 hours",
+        "smoking": "Smoking forbidden",
+        "music": "Music allowed"
+      },
+      "booking": {
+        "bookNow": "Book now",
+        "viewBooking": "View booking",
+        "cantBookOwn": "You cannot book your own trip",
+        "noSeats": "No seats available for this trip",
+        "processing": "Processing...",
+        "yourTrip": "Your trip"
+      },
+      "mapError": "Could not calculate route. Showing static map.",
+      "dateUnavailable": "Date unavailable"
+    },
+    "allTrips": "All available trips",
+    "tripsFrom": "Trips from {{city}}",
+    "tripsTo": "Trips to {{city}}",
+    "tripsBetween": "{{from}} → {{to}}",
+    "noResults": "No trips found matching the search criteria.",
+    "showingAll": "No trips found for the selected criteria. Showing all available trips.",
+    "loading": "Loading trips...",
+    "error": "Failed to load trips",
+    "filters": {
+      "title": "Filters",
+      "priceRange": {
+        "label": "Price (MDL)",
+        "min": "Min",
+        "max": "Max"
+      },
+      "sortBy": "Sort by",
+      "vehicleType": "Vehicle type",
+      "departureTime": "Departure time",
+      "minSeats": "Minimum seats",
+      "minRating": "Minimum rating",
+      "preferences": {
+        "label": "Trip preferences",
+        "smoking": "Smoking allowed",
+        "music": "Music allowed",
+        "pets": "Pets allowed"
+      },
+      "baggage": "Medium baggage allowed",
+      "responseTime": "Responds within ~2 hours",
+      "smokingForbidden": "Smoking forbidden",
+      "musicAllowed": "Music allowed",
+      "reset": "Reset filters",
+      "sortOptions": {
+        "dateAsc": "Date (ascending)",
+        "dateDesc": "Date (descending)",
+        "priceAsc": "Price (ascending)",
+        "priceDesc": "Price (descending)",
+        "seatsAsc": "Seats (ascending)",
+        "seatsDesc": "Seats (descending)"
+      },
+      "vehicleTypes": {
+        "all": "All",
+        "car": "Car",
+        "bus": "Bus"
+      },
+      "departureTimes": {
+        "all": "All",
+        "morning": "Morning",
+        "afternoon": "Afternoon",
+        "evening": "Evening",
+        "night": "Night"
+      }
+    },
+    "tripCard": {
+      "perSeat": "per seat",
+      "availableSeats": "{{count}} seats available",
+      "noSeats": "No seats available",
+      "viewDetails": "View details",
+      "bookNow": "Book now"
     }
   },
   "info_pages": {
@@ -476,5 +677,98 @@
       "call": "Call now",
       "email": "Send email"
     }
+  },
+  "testimonials": {
+    "title": "What Our Passengers Say",
+    "testimonial1": {
+      "name": "Maria D.",
+      "route": "Chisinau → Balti",
+      "text": "\"Excellent service! The driver was punctual and friendly, and the journey was very comfortable.\""
+    },
+    "testimonial2": {
+      "name": "John P.",
+      "route": "Chisinau → Orhei",
+      "text": "\"Affordable prices and a very simple booking system. Highly recommended!\""
+    },
+    "testimonial3": {
+      "name": "Anna M.",
+      "route": "Chisinau → Cahul",
+      "text": "\"I travel frequently with GoMoldova and am very satisfied with the service. Clean cars and professional drivers.\""
+    }
+  },
+  "bus_company_cta": {
+    "title": "For Transport Companies",
+    "description": "Become a GoMoldova partner and grow your business. Get access to a modern platform and a steady stream of passengers.",
+    "register_button": "Register Now"
+  },
+  "trip_details": {
+    "from": "from",
+    "duration": "hours",
+    "trips_per_day": "trips per day"
+  },
+  "bookingRequests": {
+    "title": "My Booking Requests",
+    "filters": {
+      "all": "All Requests",
+      "pending": "Pending",
+      "accepted": "Accepted",
+      "rejected": "Rejected"
+    },
+    "empty": {
+      "all": "You don't have any booking requests",
+      "pending": "You don't have any pending requests",
+      "accepted": "You don't have any accepted requests",
+      "rejected": "You don't have any rejected requests"
+    },
+    "card": {
+      "seats": "{{count}} seat(s) requested",
+      "from": "From",
+      "to": "To",
+      "date": "Date",
+      "time": "Time",
+      "driver": "Driver",
+      "company": "Transport Company",
+      "unknownProvider": "Unknown Provider",
+      "unknownPassenger": "Unknown Passenger",
+      "actions": {
+        "approve": "Approve Request",
+        "reject": "Reject Request",
+        "cancel": "Cancel",
+        "cancelRequest": "Cancel Request",
+        "cancelBooking": "Cancel Booking",
+        "cancelDecision": "Cancel Decision"
+      },
+      "confirmations": {
+        "approve": {
+          "title": "Confirm Approval",
+          "message": "Are you sure you want to approve this booking request? The passenger will be notified and will be able to see the trip details.",
+          "cancel": "Cancel",
+          "confirm": "Confirm"
+        },
+        "reject": {
+          "title": "Confirm Rejection",
+          "message": "Are you sure you want to reject this booking request? The passenger will be notified of your decision.",
+          "cancel": "Cancel",
+          "confirm": "Confirm"
+        },
+        "cancel": {
+          "title": "Confirm Cancellation",
+          "message": {
+            "driver": {
+              "accepted": "Are you sure you want to cancel this booking? The passenger will be notified of the cancellation.",
+              "rejected": "Are you sure you want to cancel your decision?"
+            },
+            "passenger": {
+              "pending": "Are you sure you want to cancel this booking request?",
+              "accepted": "Are you sure you want to cancel this booking? The passenger will be notified of the cancellation."
+            }
+          },
+          "back": "Back",
+          "confirm": "Confirm"
+        }
+      }
+    },
+    "loading": "Loading booking requests...",
+    "error": "Error loading booking requests"
   }
 } 

@@ -22,21 +22,21 @@ CREATE TABLE IF NOT EXISTS public.bus_companies (
 -- Enable RLS
 ALTER TABLE public.bus_companies ENABLE ROW LEVEL SECURITY;
 
--- Create policy to allow anyone to insert (for registration)
+-- Create a simple policy that allows anyone to insert
 CREATE POLICY "Allow public insert"
 ON public.bus_companies
 FOR INSERT
 TO public
 WITH CHECK (true);
 
--- Create policy to allow public to view their own registrations
+-- Create a policy that allows anyone to view their own registrations
 CREATE POLICY "Allow view own registrations"
 ON public.bus_companies
 FOR SELECT
 TO public
 USING (true);
 
--- Create policy to allow admins full access
+-- Create a policy that allows admins full access
 CREATE POLICY "Allow admin full access"
 ON public.bus_companies
 FOR ALL
@@ -102,8 +102,9 @@ END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
 -- Grant necessary permissions
+GRANT ALL ON public.bus_companies TO anon;
+GRANT ALL ON public.bus_companies TO authenticated;
 GRANT USAGE ON SCHEMA public TO anon, authenticated;
-GRANT ALL ON public.bus_companies TO anon, authenticated;
 GRANT EXECUTE ON FUNCTION public.is_admin TO anon, authenticated;
 GRANT EXECUTE ON FUNCTION public.approve_bus_company TO authenticated;
 GRANT EXECUTE ON FUNCTION public.reject_bus_company TO authenticated;
@@ -153,4 +154,7 @@ DROP TRIGGER IF EXISTS on_bus_company_registration ON public.bus_companies;
 CREATE TRIGGER on_bus_company_registration
     AFTER INSERT ON public.bus_companies
     FOR EACH ROW
-    EXECUTE FUNCTION public.notify_admins_of_registration(); 
+    EXECUTE FUNCTION public.notify_admins_of_registration();
+
+-- Make user_id nullable
+ALTER TABLE public.bus_companies ALTER COLUMN user_id DROP NOT NULL; 

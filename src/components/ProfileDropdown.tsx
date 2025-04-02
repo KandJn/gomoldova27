@@ -6,6 +6,7 @@ import { supabase } from '../lib/supabase';
 import toast from 'react-hot-toast';
 import { useNotifications } from '../contexts/NotificationsContext';
 import { useAvatar } from '../contexts/AvatarContext';
+import { useTranslation } from 'react-i18next';
 
 interface ProfileDropdownProps {
   isOpen: boolean;
@@ -24,6 +25,7 @@ export function ProfileDropdown({ isOpen, onClose, onMouseLeave, onOpenChat }: P
   const dropdownRef = useRef<HTMLDivElement>(null);
   const mounted = useRef(false);
   const [imageError, setImageError] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     mounted.current = true;
@@ -89,9 +91,9 @@ export function ProfileDropdown({ isOpen, onClose, onMouseLeave, onOpenChat }: P
       const { error } = await supabase.auth.signOut();
       if (error) throw error;
       setUser(null);
-      toast.success('Deconectare reușită');
+      toast.success(t('profile.dropdown.logout_success'));
     } catch (error) {
-      toast.error('Eroare la deconectare');
+      toast.error(t('profile.dropdown.logout_error'));
     }
   };
 
@@ -168,7 +170,7 @@ export function ProfileDropdown({ isOpen, onClose, onMouseLeave, onOpenChat }: P
             >
               <div className="flex items-center">
                 <User className="h-4 w-4 mr-3" />
-                Profil
+                {t('profile.dropdown.my_profile')}
               </div>
               {unreadCount > 0 && (
                 <span className="bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
@@ -187,7 +189,7 @@ export function ProfileDropdown({ isOpen, onClose, onMouseLeave, onOpenChat }: P
             >
               <div className="flex items-center">
                 <Car className="h-4 w-4 mr-3" />
-                Călătoriile mele
+                {t('profile.dropdown.my_trips')}
               </div>
               {getNotificationCount('trip') > 0 && (
                 <span className="bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
@@ -206,7 +208,7 @@ export function ProfileDropdown({ isOpen, onClose, onMouseLeave, onOpenChat }: P
             >
               <div className="flex items-center">
                 <ClipboardList className="h-4 w-4 mr-3" />
-                Cereri de rezervare
+                {t('profile.dropdown.my_bookings')}
               </div>
               {getNotificationCount('booking') > 0 && (
                 <span className="bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
@@ -225,7 +227,7 @@ export function ProfileDropdown({ isOpen, onClose, onMouseLeave, onOpenChat }: P
             >
               <div className="flex items-center">
                 <MessageCircle className="h-4 w-4 mr-3" />
-                Mesaje
+                {t('profile.dropdown.messages')}
               </div>
               {getNotificationCount('message') > 0 && (
                 <span className="bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
@@ -244,7 +246,7 @@ export function ProfileDropdown({ isOpen, onClose, onMouseLeave, onOpenChat }: P
             >
               <div className="flex items-center">
                 <CreditCard className="h-4 w-4 mr-3" />
-                Transferuri
+                {t('profile.dropdown.payments')}
               </div>
               {getNotificationCount('transfer') > 0 && (
                 <span className="bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
@@ -263,7 +265,7 @@ export function ProfileDropdown({ isOpen, onClose, onMouseLeave, onOpenChat }: P
             >
               <div className="flex items-center">
                 <Settings className="h-4 w-4 mr-3" />
-                Plăți și rambursări
+                {t('profile.dropdown.settings')}
               </div>
               {getNotificationCount('payment') > 0 && (
                 <span className="bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
@@ -289,7 +291,7 @@ export function ProfileDropdown({ isOpen, onClose, onMouseLeave, onOpenChat }: P
                 className="flex w-full items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50"
               >
                 <LogOut className="h-4 w-4 mr-3" />
-                Deconectare
+                {t('profile.dropdown.logout')}
               </button>
             </div>
           </div>

@@ -1,6 +1,12 @@
 {
   "nav": {
     "offer_ride": "Oferă o călătorie",
+    "offer_ride_dropdown": {
+      "title": "Oferă o călătorie",
+      "description": "Împărtășește călătoria și economisește bani",
+      "departure": "Oferă o călătorie de plecare",
+      "return": "Oferă o călătorie de întoarcere"
+    },
     "login": "Autentificare",
     "logout": "Deconectare"
   },
@@ -35,18 +41,18 @@
     }
   },
   "how_it_works": {
-    "title": "Cum funcționează",
+    "title": "Cum Funcționează",
     "section1": {
       "title": "Înregistrare și Autentificare",
-      "content": "Creați un cont nou sau conectați-vă la contul existent pentru a începe să folosiți platforma noastră."
+      "content": "Creează un cont nou sau autentifică-te în contul tău existent pentru a începe să folosești platforma noastră."
     },
     "section2": {
       "title": "Căutare și Rezervare",
-      "content": "Căutați rute disponibile, selectați data și ora dorită, și rezervați locul dumneavoastră în autobuz."
+      "content": "Caută rute disponibile, selectează data și ora dorită și rezervă locul tău în autobuz."
     },
     "section3": {
       "title": "Confirmare și Notificări",
-      "content": "Primiți confirmarea rezervării prin email și notificări despre actualizările călătoriei."
+      "content": "Primește confirmarea rezervării prin email și notificări despre actualizările călătoriei."
     }
   },
   "popular_destinations": {
@@ -92,6 +98,19 @@
       "notifications": "Notificări",
       "privacy": "Confidențialitate",
       "language": "Limbă"
+    },
+    "dropdown": {
+      "welcome": "Bine ai venit",
+      "my_profile": "Profilul meu",
+      "my_trips": "Călătoriile mele",
+      "my_bookings": "Rezervările mele",
+      "messages": "Mesaje",
+      "notifications": "Notificări",
+      "payments": "Plăți",
+      "settings": "Setări",
+      "logout": "Deconectare",
+      "logout_success": "Deconectare reușită",
+      "logout_error": "Eroare la deconectare"
     }
   },
   "admin": {
@@ -120,11 +139,110 @@
       "results_count": "{{count}} călătorii găsite"
     },
     "details": {
-      "book_now": "Rezervă acum",
-      "price": "Preț",
-      "seats": "Locuri disponibile",
-      "departure": "Plecare",
-      "arrival": "Sosire"
+      "title": "Detalii călătorie",
+      "notFound": "Călătoria nu a fost găsită",
+      "route": {
+        "from": "Plecare",
+        "to": "Sosire",
+        "fastestRoute": "Cel mai rapid traseu"
+      },
+      "price": {
+        "perSeat": "per loc"
+      },
+      "driver": {
+        "title": "Șoferul",
+        "verified": "Verificat",
+        "sendMessage": "Trimite mesaj"
+      },
+      "company": {
+        "title": "Compania de transport"
+      },
+      "seats": {
+        "available": "{{count}} loc disponibil",
+        "availablePlural": "{{count}} locuri disponibile"
+      },
+      "car": {
+        "title": "Vehicul"
+      },
+      "amenities": {
+        "baggage": "Bagaj mediu permis",
+        "responseTime": "Răspunde în ~2 ore",
+        "smoking": "Fumatul interzis",
+        "music": "Muzică permisă"
+      },
+      "booking": {
+        "bookNow": "Rezervă acum",
+        "viewBooking": "Vezi rezervarea",
+        "cantBookOwn": "Nu puteți rezerva propria călătorie",
+        "noSeats": "Nu mai sunt locuri disponibile pentru această călătorie",
+        "processing": "Se procesează...",
+        "yourTrip": "Călătoria ta"
+      }
+    },
+    "allTrips": "Toate călătoriile disponibile",
+    "tripsFrom": "Călătorii din {{city}}",
+    "tripsTo": "Călătorii spre {{city}}",
+    "tripsBetween": "{{from}} → {{to}}",
+    "noResults": "Nu au fost găsite călătorii care să corespundă criteriilor de căutare.",
+    "showingAll": "Nu au fost găsite călătorii pentru criteriile selectate. Afișăm toate călătoriile disponibile.",
+    "loading": "Se încarcă călătoriile...",
+    "error": "Nu s-au putut încărca călătoriile",
+    "filters": {
+      "title": "Filtre",
+      "priceRange": {
+        "label": "Preț (MDL)",
+        "min": "Min",
+        "max": "Max"
+      },
+      "sortBy": "Sortează după",
+      "vehicleType": "Tip vehicul",
+      "departureTime": "Ora plecării",
+      "minSeats": "Locuri minime",
+      "minRating": "Rating minim",
+      "preferences": {
+        "label": "Preferințe călătorie",
+        "smoking": "Fumat permis",
+        "music": "Muzică permisă",
+        "pets": "Animale de companie permise"
+      },
+      "baggage": "Bagaj mediu permis",
+      "responseTime": "Răspunde în ~2 ore",
+      "smokingForbidden": "Fumatul interzis",
+      "musicAllowed": "Muzică permisă",
+      "reset": "Resetează filtrele",
+      "sortOptions": {
+        "dateAsc": "Data (crescător)",
+        "dateDesc": "Data (descrescător)",
+        "priceAsc": "Preț (crescător)",
+        "priceDesc": "Preț (descrescător)",
+        "seatsAsc": "Locuri (crescător)",
+        "seatsDesc": "Locuri (descrescător)"
+      },
+      "vehicleTypes": {
+        "all": "Toate",
+        "car": "Mașină",
+        "bus": "Autobuz"
+      },
+      "departureTimes": {
+        "all": "Toate",
+        "morning": "Dimineața",
+        "afternoon": "După-amiaza",
+        "evening": "Seara",
+        "night": "Noaptea"
+      }
+    },
+    "tripCard": {
+      "perSeat": "per loc",
+      "availableSeats": "{{count}} locuri disponibile",
+      "noSeats": "Nu mai sunt locuri disponibile",
+      "viewDetails": "Vezi detalii",
+      "bookNow": "Rezervă acum"
+    },
+    "status": {
+      "pending": "În așteptare",
+      "confirmed": "Confirmată",
+      "completed": "Finalizată",
+      "cancelled": "Anulată"
     }
   },
   "info_pages": {
@@ -179,11 +297,13 @@
     "loading": "Eroare la încărcare",
     "not_found": "Pagina nu a fost găsită",
     "unauthorized": "Autentificare necesară",
-    "forbidden": "Acces interzis"
+    "forbidden": "Acces interzis",
+    "profileLoad": "Nu s-a putut încărca profilul",
+    "tripsLoad": "Nu s-au putut încărca călătoriile"
   },
   "footer": {
     "about": {
-      "title": "Despre noi",
+      "title": "Despre",
       "how_it_works": "Cum funcționează",
       "company": "Despre companie",
       "press": "Presă"
@@ -192,7 +312,7 @@
       "title": "Informații",
       "help": "Ajutor",
       "safety": "Siguranță",
-      "terms": "Termeni și condiții"
+      "terms": "Termeni"
     },
     "contact": {
       "title": "Contact",
@@ -204,62 +324,91 @@
   },
   "auth": {
     "login": "Autentificare",
-    "register": "Înregistrare",
+    "register": {
+      "email": {
+        "title": "Creează un cont nou",
+        "step": "Pasul 1 din 5 • Email",
+        "label": "Adresa de email",
+        "placeholder": "nume@exemplu.com",
+        "continue": "Continuă",
+        "alreadyHaveAccount": "Ai deja un cont?",
+        "login": "Autentifică-te",
+        "invalidEmail": "Adresa de email nu este validă",
+        "alreadyExists": "Acest email este deja înregistrat. Te rugăm să te autentifici sau să folosești un alt email."
+      },
+      "name": {
+        "title": "Cum te numești?",
+        "step": "Pasul 2 din 5 • Nume complet",
+        "firstName": {
+          "label": "Prenume",
+          "placeholder": "Introdu prenumele tău",
+          "error": "Prenumele este obligatoriu"
+        },
+        "lastName": {
+          "label": "Nume",
+          "placeholder": "Introdu numele tău",
+          "error": "Numele este obligatoriu"
+        },
+        "back": "Înapoi",
+        "continue": "Continuă"
+      },
+      "gender": {
+        "title": "Care este genul tău?",
+        "step": "Pasul 3 din 5 • Gen",
+        "label": "Gen",
+        "male": "Masculin",
+        "female": "Feminin",
+        "other": "Altul",
+        "back": "Înapoi",
+        "continue": "Continuă"
+      },
+      "success": {
+        "title": "Cont creat cu succes!",
+        "message": "Mulțumim că te-ai înregistrat pe GoMoldova",
+        "checkEmail": "Te rugăm să verifici emailul pentru a-ți confirma contul. Apasă pe link-ul din email pentru a verifica adresa de email.",
+        "backToLogin": "Înapoi la autentificare"
+      },
+      "submit": "Înregistrare"
+    },
     "email": "Email",
     "password": "Parolă",
     "name": "Nume",
+    "enterEmail": "Introduceți emailul",
+    "enterPassword": "Introduceți parola",
     "forgotPassword": "Ai uitat parola?",
     "noAccount": "Nu ai cont? Înregistrează-te",
-    "haveAccount": "Ai deja cont? Autentifică-te",
-    "enterEmail": "Introdu adresa ta de email",
-    "confirmPassword": "Confirmă parola",
-    "register": {
-      "checkYourEmail": "Verificați emailul",
-      "checkEmail": "Vă rugăm să verificați emailul",
-      "confirmationEmailSent": "Am trimis un email de confirmare la {{email}}. Vă rugăm să verificați inbox-ul și să faceți clic pe link-ul de confirmare pentru a finaliza înregistrarea.",
-      "resendEmail": "Retrimite emailul de confirmare",
-      "emailResent": "Emailul de confirmare a fost retrimis cu succes",
-      "checkSpamFolder": "Dacă nu vedeți emailul, vă rugăm să verificați folderul spam",
-      "noPendingRegistration": "Nu există nicio înregistrare în așteptare",
-      "startRegistration": "Începe înregistrarea",
-      "emailNotFound": "Emailul nu a fost găsit. Vă rugăm să începeți înregistrarea din nou.",
-      "passwordMismatch": "Parolele nu se potrivesc",
-      "invalidEmail": "Adresă de email invalidă",
-      "passwordTooShort": "Parola trebuie să aibă cel puțin 6 caractere",
-      "emailRateLimit": "Prea multe încercări. Vă rugăm să încercați din nou mai târziu.",
-      "error": "A apărut o eroare. Vă rugăm să încercați din nou.",
-      "createPassword": "Creați parola",
-      "passwordDescription": "Alegeți o parolă puternică pentru contul dvs.",
-      "submit": "Creați contul"
-    },
-    "success": "Cont creat cu succes!",
+    "loginSuccess": "Autentificare reușită",
+    "error": "A apărut o eroare la autentificare",
+    "createAccount": "Creează cont",
     "resetPassword": {
       "title": "Resetare parolă",
-      "description": "Introduceți adresa de email pentru a primi un link de resetare a parolei",
+      "description": "Introdu adresa ta de email și îți vom trimite un link pentru resetarea parolei.",
       "email": "Email",
-      "enterEmail": "Introduceți adresa de email",
-      "submit": "Trimite Link Resetare",
-      "success": "Link-ul de resetare a parolei a fost trimis cu succes",
-      "error": "A apărut o eroare la trimiterea link-ului de resetare",
-      "wait": "Vă rugăm să așteptați {{seconds}} secunde înainte de a încerca din nou",
+      "enterEmail": "Introdu adresa ta de email",
+      "submit": "Trimite link-ul de resetare",
+      "success": "Link-ul de resetare a fost trimis!",
+      "error": "Nu s-a putut trimite link-ul. Te rugăm să încerci din nou.",
+      "wait": "Așteaptă {{seconds}} secunde",
       "sent": {
-        "title": "Link de resetare trimis",
-        "description": "Am trimis un email cu instrucțiuni pentru resetarea parolei. Vă rugăm să verificați căsuța de poștă și să urmați link-ul pentru a vă reseta parola.",
+        "title": "Link-ul a fost trimis!",
+        "description": "Te rugăm să verifici emailul pentru link-ul de resetare a parolei.",
         "backToLogin": "Înapoi la autentificare"
       }
     },
     "resetPasswordConfirm": {
-      "title": "Setați noua parolă",
-      "description": "Vă rugăm să introduceți noua parolă",
-      "newPassword": "Noua parolă",
-      "enterNewPassword": "Introduceți noua parolă",
-      "confirmPassword": "Confirmați parola",
-      "submit": "Actualizează parola",
-      "success": "Parola a fost actualizată cu succes",
-      "error": "A apărut o eroare la actualizarea parolei",
+      "title": "Setează noua parolă",
+      "description": "Te rugăm să introduci noua ta parolă.",
+      "newPassword": "Parolă nouă",
+      "enterNewPassword": "Introdu parola nouă",
+      "confirmPassword": "Confirmă parola",
+      "confirmNewPassword": "Confirmă parola nouă",
+      "submit": "Setează parola",
+      "success": "Parola a fost actualizată cu succes!",
+      "error": "Nu s-a putut actualiza parola. Te rugăm să încerci din nou.",
       "passwordsDoNotMatch": "Parolele nu se potrivesc",
       "passwordTooShort": "Parola trebuie să aibă cel puțin 6 caractere",
-      "invalidToken": "Link-ul de resetare a parolei este invalid sau a expirat"
+      "samePassword": "Noua parolă trebuie să fie diferită de parola veche",
+      "invalidToken": "Link-ul de resetare este invalid sau a expirat"
     },
     "updatePassword": {
       "title": "Actualizare Parolă",
@@ -275,7 +424,15 @@
       "passwordTooShort": "Parola trebuie să aibă cel puțin 6 caractere",
       "invalidToken": "Link-ul de resetare este invalid sau a expirat"
     },
-    "createPassword": "Creați parola"
+    "createPassword": "Creați parola",
+    "confirmPassword": "Confirmă parola",
+    "callback": {
+      "verifying": "Verificăm emailul dvs.",
+      "pleaseWait": "Vă rugăm să așteptați în timp ce verificăm adresa dvs. de email...",
+      "success": "Email verificat cu succes!",
+      "error": "Eroare la verificarea emailului. Vă rugăm să încercați din nou.",
+      "noSession": "Nu s-a găsit nicio sesiune activă. Vă rugăm să încercați să vă autentificați din nou."
+    }
   },
   "common": {
     "loading": "Se încarcă...",
@@ -556,5 +713,54 @@
       "call": "Sunați acum",
       "email": "Trimiteți email"
     }
+  },
+  "testimonials": {
+    "title": "Ce Spun Călătorii Noștri",
+    "testimonial1": {
+      "name": "Maria D.",
+      "route": "Chișinău → Bălți",
+      "text": "\"Serviciu excelent! Șoferul a fost punctual și amabil, iar călătoria a fost foarte confortabilă.\""
+    },
+    "testimonial2": {
+      "name": "Ion P.",
+      "route": "Chișinău → Orhei",
+      "text": "\"Prețuri accesibile și sistem de rezervare foarte simplu de folosit. Recomand cu încredere!\""
+    },
+    "testimonial3": {
+      "name": "Ana M.",
+      "route": "Chișinău → Cahul",
+      "text": "\"Călătoresc frecvent cu GoMoldova și sunt foarte mulțumită de servicii. Mașini curate și șoferi profesioniști.\""
+    }
+  },
+  "bus_company_cta": {
+    "title": "Pentru Companiile de Transport",
+    "description": "Devino partener GoMoldova și crește-ți afacerea. Beneficiază de o platformă modernă și un flux constant de călători.",
+    "register_button": "Înregistrează-te Acum"
+  },
+  "trip_details": {
+    "from": "de la",
+    "duration": "ore",
+    "trips_per_day": "călătorii zilnic"
+  },
+  "myTrips": {
+    "title": "Călătoriile mele",
+    "upcoming": "Viitoare",
+    "past": "Anterioare",
+    "noUpcoming": "Nu ai călătorii viitoare programate",
+    "noPast": "Nu ai călătorii anterioare",
+    "searchPlaceholder": "Caută călătorii...",
+    "driver": "Șofer",
+    "tripDetails": "Detalii călătorie",
+    "from": "De la",
+    "to": "Până la",
+    "date": "Data",
+    "time": "Ora",
+    "price": "Preț",
+    "status": "Status",
+    "driverInfo": "Informații șofer",
+    "vehicleInfo": "Informații vehicul",
+    "vehicle": "Vehicul",
+    "color": "Culoare",
+    "plate": "Număr"
   }
 } 

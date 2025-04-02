@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import { Check, X, Calendar, Clock, MapPin, CheckCircle, XCircle, User } from 'lucide-react';
+import { Check, X, Calendar, Clock, MapPin, CheckCircle, XCircle, User, MessageCircle } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { useAuthStore } from '../lib/store';
 import toast from 'react-hot-toast';
 import { format } from 'date-fns';
 import { ro } from 'date-fns/locale';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import { Button, Badge } from 'flowbite-react';
 
 interface Profile {
   id: string;
@@ -44,6 +47,8 @@ interface BookingRequestProps {
 }
 
 export function BookingRequestCard({ booking, onStatusUpdate }: BookingRequestProps) {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
   const { user } = useAuthStore();
   const isDriver = booking.trip.driver_id === user?.id;
   const isOwnBooking = booking.user_id === user?.id;
@@ -56,31 +61,28 @@ export function BookingRequestCard({ booking, onStatusUpdate }: BookingRequestPr
     switch (booking.status.toLowerCase()) {
       case 'pending':
         return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-            În așteptare
-          </span>
+          <Badge color="warning">
+            {t('trips.status.pending')}
+          </Badge>
         );
       case 'accepted':
       case 'confirmed':
         return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-            <CheckCircle className="w-4 h-4 mr-1" />
-            Aprobată
-          </span>
+          <Badge color="success">
+            {t('trips.status.confirmed')}
+          </Badge>
         );
       case 'rejected':
         return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
-            <XCircle className="w-4 h-4 mr-1" />
-            Respinsă
-          </span>
+          <Badge color="failure">
+            {t('trips.status.rejected')}
+          </Badge>
         );
       case 'canceled':
         return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-            <X className="w-4 h-4 mr-1" />
-            Anulată
-          </span>
+          <Badge color="gray">
+            {t('trips.status.cancelled')}
+          </Badge>
         );
       default:
         return null;
@@ -126,12 +128,12 @@ export function BookingRequestCard({ booking, onStatusUpdate }: BookingRequestPr
       }
       
       console.log('Booking updated successfully:', updatedBooking);
-      toast.success('Cerere de rezervare aprobată cu succes');
+      toast.success(t('bookingRequests.card.actions.approve'));
       setShowApproveConfirm(false);
       onStatusUpdate();
     } catch (error: any) {
       console.error('Error approving booking:', error);
-      toast.error(`Eroare la aprobarea cererii de rezervare: ${error.message || 'Eroare necunoscută'}`);
+      toast.error(error.message || t('common.error'));
     } finally {
       setIsProcessing(false);
     }
@@ -154,12 +156,12 @@ export function BookingRequestCard({ booking, onStatusUpdate }: BookingRequestPr
       }
       
       console.log('Booking updated successfully:', updatedBooking);
-      toast.success('Cerere de rezervare respinsă');
+      toast.success(t('bookingRequests.card.actions.reject'));
       setShowRejectConfirm(false);
       onStatusUpdate();
     } catch (error: any) {
       console.error('Error rejecting booking:', error);
-      toast.error(`Eroare la respingerea cererii de rezervare: ${error.message || 'Eroare necunoscută'}`);
+      toast.error(error.message || t('common.error'));
     } finally {
       setIsProcessing(false);
     }
@@ -187,30 +189,29 @@ export function BookingRequestCard({ booking, onStatusUpdate }: BookingRequestPr
       let successMessage = '';
       if (isDriver) {
         successMessage = isAccepted 
-          ? 'Rezervarea a fost anulată cu succes' 
-          : 'Decizia a fost anulată cu succes';
+          ? t('bookingRequests.card.actions.cancelBooking')
+          : t('bookingRequests.card.actions.cancelDecision');
       } else {
         successMessage = isPending 
-          ? 'Cererea de rezervare a fost anulată' 
-          : 'Rezervarea a fost anulată';
+          ? t('bookingRequests.card.actions.cancelRequest')
+          : t('bookingRequests.card.actions.cancelBooking');
       }
       
-      toast.success(successMessage, {
-        duration: 3000,
-        position: 'top-center'
-      });
+      toast.success(successMessage);
       
       setShowCancelConfirm(false);
       onStatusUpdate();
     } catch (error: any) {
       console.error('Error canceling booking:', error);
-      const errorMessage = isDriver
-        ? `Eroare la anularea ${isAccepted ? 'rezervării' : 'deciziei'}`
-        : `Eroare la anularea ${isPending ? 'cererii' : 'rezervării'}`;
-      toast.error(`${errorMessage}: ${error.message || 'Eroare necunoscută'}`);
+      toast.error(error.message || t('common.error'));
     } finally {
       setIsProcessing(false);
     }
+  };
+
+  const handleContact = () => {
+    const userId = isDriver ? booking.profiles.id : booking.trip.driver_id;
+    navigate(`/messages?user=${userId}`);
   };
 
   const getProviderInfo = () => {
@@ -218,19 +219,19 @@ export function BookingRequestCard({ booking, onStatusUpdate }: BookingRequestPr
       return {
         name: booking.trip.company.company_name,
         avatar: booking.trip.company.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(booking.trip.company.company_name)}`,
-        type: 'Companie de transport'
+        type: t('bookingRequests.card.company')
       };
     } else if (booking.trip.driver) {
       return {
-        name: booking.trip.driver.full_name || 'Șofer necunoscut',
+        name: booking.trip.driver.full_name || t('bookingRequests.card.unknownProvider'),
         avatar: booking.trip.driver.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(booking.trip.driver.full_name || 'Unknown')}`,
-        type: 'Șofer'
+        type: t('bookingRequests.card.driver')
       };
     } else {
       return {
-        name: 'Furnizor necunoscut',
+        name: t('bookingRequests.card.unknownProvider'),
         avatar: `https://ui-avatars.com/api/?name=Unknown`,
-        type: 'Furnizor'
+        type: t('bookingRequests.card.unknownProvider')
       };
     }
   };
@@ -238,7 +239,7 @@ export function BookingRequestCard({ booking, onStatusUpdate }: BookingRequestPr
   const providerInfo = getProviderInfo();
 
   return (
-    <div className="bg-white rounded-lg shadow-sm p-6 mb-4">
+    <div className="bg-white rounded-lg shadow-sm p-6 mb-4 hover:shadow-md transition-shadow">
       <div className="flex items-start justify-between">
         <div className="flex items-center">
           {isDriver ? (
@@ -250,10 +251,10 @@ export function BookingRequestCard({ booking, onStatusUpdate }: BookingRequestPr
               />
               <div className="ml-4">
                 <h3 className="font-medium text-gray-900">
-                  {booking.profiles.full_name || 'Pasager necunoscut'}
+                  {booking.profiles.full_name || t('bookingRequests.card.unknownPassenger')}
                 </h3>
                 <p className="text-sm text-gray-500">
-                  {booking.seats} {booking.seats === 1 ? 'loc' : 'locuri'} rezervate
+                  {t('bookingRequests.card.seats', { count: booking.seats })}
                 </p>
               </div>
             </>
@@ -281,34 +282,47 @@ export function BookingRequestCard({ booking, onStatusUpdate }: BookingRequestPr
         <div className="flex items-center space-x-2 ml-auto">
           {isDriver && isPending && (
             <>
-              <button
+              <Button
+                color="success"
                 onClick={() => setShowApproveConfirm(true)}
-                className="flex items-center px-3 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors"
+                className="flex items-center px-4 py-2 gap-2 text-sm font-medium"
               >
-                <Check className="h-4 w-4 mr-1" />
-                Aprobă cererea
-              </button>
-              <button
+                <Check className="h-4 w-4" />
+                {t('bookingRequests.card.actions.approve')}
+              </Button>
+              <Button
+                color="failure"
                 onClick={() => setShowRejectConfirm(true)}
-                className="flex items-center px-3 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
+                className="flex items-center px-4 py-2 gap-2 text-sm font-medium"
               >
-                <X className="h-4 w-4 mr-1" />
-                Respinge cererea
-              </button>
+                <X className="h-4 w-4" />
+                {t('bookingRequests.card.actions.reject')}
+              </Button>
             </>
           )}
           {canCancel && (
-            <button
+            <Button
+              color="light"
               onClick={() => setShowCancelConfirm(true)}
-              className="flex items-center px-3 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors"
+              className="flex items-center px-4 py-2 gap-2 text-sm font-medium border border-gray-200 hover:bg-gray-100 transition-colors"
             >
-              <X className="h-4 w-4 mr-1" />
-              {isDriver 
-                ? (isAccepted ? 'Anulează rezervarea' : 'Anulează decizia')
-                : (isPending ? 'Anulează cererea' : 'Anulează rezervarea')
-              }
-            </button>
+              <X className="h-4 w-4 text-gray-600" />
+              <span className="text-gray-700">
+                {isDriver 
+                  ? (isAccepted ? t('bookingRequests.card.actions.cancelBooking') : t('bookingRequests.card.actions.cancelDecision'))
+                  : (isPending ? t('bookingRequests.card.actions.cancelRequest') : t('bookingRequests.card.actions.cancelBooking'))
+                }
+              </span>
+            </Button>
           )}
+          <Button
+            color="light"
+            onClick={handleContact}
+            className="flex items-center px-4 py-2 gap-2 text-sm font-medium bg-blue-50 border-blue-100 hover:bg-blue-100 transition-colors"
+          >
+            <MessageCircle className="h-4 w-4 text-blue-600" />
+            <span className="text-blue-700">{t('common.contact')}</span>
+          </Button>
         </div>
       </div>
 
@@ -328,8 +342,8 @@ export function BookingRequestCard({ booking, onStatusUpdate }: BookingRequestPr
             <div className="flex items-start text-sm text-gray-500">
               <MapPin className="h-4 w-4 mr-1 mt-1 flex-shrink-0" />
               <div>
-                <p>De la: {booking.trip.from_city}</p>
-                <p className="mt-1">Până la: {booking.trip.to_city}</p>
+                <p>{t('bookingRequests.card.from')}: {booking.trip.from_city}</p>
+                <p className="mt-1">{t('bookingRequests.card.to')}: {booking.trip.to_city}</p>
               </div>
             </div>
           </div>
@@ -340,29 +354,28 @@ export function BookingRequestCard({ booking, onStatusUpdate }: BookingRequestPr
       {showApproveConfirm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
-            <h3 className="text-lg font-medium text-gray-900 mb-4">Confirmă aprobarea</h3>
+            <h3 className="text-lg font-medium text-gray-900 mb-4">{t('bookingRequests.card.confirmations.approve.title')}</h3>
             <p className="text-gray-600 mb-6">
-              Sunteți sigur că doriți să aprobați această cerere de rezervare? 
-              Pasagerul va fi notificat și va putea vedea detaliile călătoriei.
+              {t('bookingRequests.card.confirmations.approve.message')}
             </p>
             <div className="flex justify-end space-x-3">
-              <button
+              <Button
+                color="light"
                 onClick={() => setShowApproveConfirm(false)}
-                className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
               >
-                Anulează
-              </button>
-              <button
+                {t('bookingRequests.card.confirmations.approve.cancel')}
+              </Button>
+              <Button
+                color="success"
                 onClick={handleApprove}
                 disabled={isProcessing}
-                className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700"
               >
                 {isProcessing ? (
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
                 ) : (
-                  'Confirmă'
+                  t('bookingRequests.card.confirmations.approve.confirm')
                 )}
-              </button>
+              </Button>
             </div>
           </div>
         </div>
@@ -372,29 +385,28 @@ export function BookingRequestCard({ booking, onStatusUpdate }: BookingRequestPr
       {showRejectConfirm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
-            <h3 className="text-lg font-medium text-gray-900 mb-4">Confirmă respingerea</h3>
+            <h3 className="text-lg font-medium text-gray-900 mb-4">{t('bookingRequests.card.confirmations.reject.title')}</h3>
             <p className="text-gray-600 mb-6">
-              Sunteți sigur că doriți să respingeți această cerere de rezervare? 
-              Pasagerul va fi notificat despre decizia dumneavoastră.
+              {t('bookingRequests.card.confirmations.reject.message')}
             </p>
             <div className="flex justify-end space-x-3">
-              <button
+              <Button
+                color="light"
                 onClick={() => setShowRejectConfirm(false)}
-                className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
               >
-                Anulează
-              </button>
-              <button
+                {t('bookingRequests.card.confirmations.reject.cancel')}
+              </Button>
+              <Button
+                color="failure"
                 onClick={handleReject}
                 disabled={isProcessing}
-                className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
               >
                 {isProcessing ? (
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
                 ) : (
-                  'Confirmă'
+                  t('bookingRequests.card.confirmations.reject.confirm')
                 )}
-              </button>
+              </Button>
             </div>
           </div>
         </div>
@@ -404,36 +416,28 @@ export function BookingRequestCard({ booking, onStatusUpdate }: BookingRequestPr
       {showCancelConfirm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
-            <h3 className="text-lg font-medium text-gray-900 mb-4">Confirmă anularea</h3>
+            <h3 className="text-lg font-medium text-gray-900 mb-4">{t('bookingRequests.card.confirmations.cancel.title')}</h3>
             <p className="text-gray-600 mb-6">
-              {isDriver
-                ? (isAccepted 
-                    ? 'Sunteți sigur că doriți să anulați această rezervare? Pasagerul va fi notificat despre anulare.'
-                    : 'Sunteți sigur că doriți să anulați decizia dumneavoastră?')
-                : (isPending 
-                    ? 'Sunteți sigur că doriți să anulați această cerere de rezervare?'
-                    : 'Sunteți sigur că doriți să anulați această rezervare? Pasagerul va fi notificat despre anulare.')}
-              <br />
-              Această acțiune nu poate fi anulată.
+              {t(`bookingRequests.card.confirmations.cancel.message.${isDriver ? 'driver' : 'passenger'}.${isAccepted ? 'accepted' : 'pending'}`)}
             </p>
             <div className="flex justify-end space-x-3">
-              <button
+              <Button
+                color="light"
                 onClick={() => setShowCancelConfirm(false)}
-                className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
               >
-                Înapoi
-              </button>
-              <button
+                {t('bookingRequests.card.confirmations.cancel.back')}
+              </Button>
+              <Button
+                color="gray"
                 onClick={handleCancel}
                 disabled={isProcessing}
-                className="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700"
               >
                 {isProcessing ? (
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
                 ) : (
-                  'Confirmă'
+                  t('bookingRequests.card.confirmations.cancel.confirm')
                 )}
-              </button>
+              </Button>
             </div>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, createContext, useContext } from 'react';
 import './i18n/config';
-import { Car, Search, MapPin, Calendar, Clock, Users as UsersIcon, Menu, X, Shield, Star, Heart, Zap, ArrowRight, Bell, Check, Bus, User, Map } from 'lucide-react';
+import { Car, Search, MapPin, Calendar, Clock, Users as UsersIcon, Menu, X, Shield, Star, Heart, Zap, ArrowRight, Bell, Check, Bus, User, Map, ChevronDown } from 'lucide-react';
 import { supabase } from './lib/supabase';
 import { useAuthStore, useSearchStore } from './lib/store';
 import { AuthModal } from './components/AuthModal';
@@ -26,6 +26,7 @@ import { RegisterName } from './pages/register/Name';
 import { RegisterBirthYear } from './pages/register/BirthYear';
 import { RegisterGender } from './pages/register/Gender';
 import { Password } from './pages/register/Password';
+import { Success } from './pages/register/Success';
 import { PhoneFill } from './pages/phone/Fill';
 import { Messages } from './pages/Messages';
 import { useTranslation } from 'react-i18next';
@@ -63,13 +64,13 @@ import { BookingRequests } from './pages/BookingRequests';
 import { ScrollToTop } from './components/ScrollToTop';
 import { BusCompanyRegistration } from './pages/BusCompanyRegistration';
 import { BusCompanyRegistrations } from './pages/admin/BusCompanyRegistrations';
-import { TestLogin } from './pages/TestLogin';
 import { ResetPassword } from './pages/auth/ResetPassword';
 import { ResetPasswordConfirm } from './pages/auth/ResetPasswordConfirm';
 import { ResetPasswordSent } from './pages/auth/ResetPasswordSent';
 import { createClient } from '@supabase/supabase-js';
 import { NotificationsProvider } from './contexts/NotificationsContext';
 import { AvatarProvider, useAvatar } from './contexts/AvatarContext';
+import { AuthProvider } from './contexts/AuthContext';
 import { BusCompanyDashboard } from './pages/bus-company/BusCompanyDashboard';
 import { BusManagement } from './pages/bus-company/BusManagement';
 import { TripManagement } from './pages/bus-company/TripManagement';
@@ -78,7 +79,6 @@ import { EditTrip } from './pages/bus-company/EditTrip';
 import { NewBus } from './pages/bus-company/NewBus';
 import { BusCompanyLayout } from './components/bus-company/BusCompanyLayout';
 import { BookingManagement } from './pages/bus-company/BookingManagement';
-import { DebugProvider, useDebug } from './contexts/DebugContext';
 import { EditBus } from './pages/bus-company/EditBus';
 import { BusCompanySettings } from './pages/bus-company/Settings';
 import { ConfirmBooking } from './pages/ConfirmBooking';
@@ -98,6 +98,8 @@ import { SetPassword } from './pages/bus-company/SetPassword';
 import { PageTransition } from './components/PageTransition';
 import { UpdatePassword } from './pages/auth/UpdatePassword';
 import { Confirm } from './pages/auth/Confirm';
+import { Login } from './pages/auth/Login';
+import { Callback } from './pages/auth/Callback';
 
 // Move handleOpenChat outside and make it a standalone function
 const handleOpenChat = (setChatRecipientId: (id: string) => void, setIsChatModalOpen: (open: boolean) => void) => (userId: string) => {
@@ -128,13 +130,15 @@ interface AppContextType {
 
 const AppContext = createContext<AppContextType | null>(null);
 
-function Layout() {
+export { AppContext };
+
+export const Layout = () => {
   const context = useContext(AppContext);
   if (!context) throw new Error('Layout must be used within AppContext.Provider');
   
   const { user } = useAuthStore();
   const { avatarTimestamp } = useAvatar();
-  const { toggleDebugMode, isDebugMode } = useDebug();
+  const { t } = useTranslation();
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -163,28 +167,15 @@ function Layout() {
             </div>
 
             <div className="flex items-center space-x-4">
-              <button
-                onClick={toggleDebugMode}
-                className={`px-3 py-1 rounded text-sm ${
-                  isDebugMode 
-                    ? 'bg-blue-600 text-white' 
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
-              >
-                Debug
-              </button>
-              
-              {user?.id && (
-                <Link
-                  to="/offer-seats/departure"
-                  className="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md"
-                >
-                  Oferă o călătorie
-                </Link>
-              )}
-
-              {user ? (
+              {user?.id ? (
                 <div className="flex items-center space-x-4">
+                  <Link
+                    to="/offer-seats/departure"
+                    className="flex items-center space-x-2 text-gray-700 hover:text-blue-600 transition-colors"
+                  >
+                    <Car className="h-5 w-5" />
+                    <span>{t('nav.offer_ride')}</span>
+                  </Link>
                   <LanguageSelector />
                   <div className="relative flex items-center">
                     <button
@@ -313,70 +304,70 @@ function Layout() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div>
-              <h3 className="text-lg font-semibold mb-4">Despre</h3>
+              <h3 className="text-lg font-semibold mb-4">{t('footer.about.title')}</h3>
               <ul className="space-y-2">
                 <li>
                   <Link to="/how-it-works" className="hover:text-blue-400 transition-all-300">
-                    Cum funcționează
+                    {t('footer.about.how_it_works')}
                   </Link>
                 </li>
                 <li>
                   <Link to="/about-company" className="hover:text-blue-400 transition-all-300">
-                    Despre companie
+                    {t('footer.about.company')}
                   </Link>
                 </li>
                 <li>
                   <Link to="/press" className="hover:text-blue-400 transition-all-300">
-                    Presă
+                    {t('footer.about.press')}
                   </Link>
                 </li>
               </ul>
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold mb-4">Informații</h3>
+              <h3 className="text-lg font-semibold mb-4">{t('footer.info.title')}</h3>
               <ul className="space-y-2">
                 <li>
                   <Link to="/help" className="hover:text-blue-400 transition-all-300">
-                    Ajutor
+                    {t('footer.info.help')}
                   </Link>
                 </li>
                 <li>
                   <Link to="/safety" className="hover:text-blue-400 transition-all-300">
-                    Siguranță
+                    {t('footer.info.safety')}
                   </Link>
                 </li>
                 <li>
                   <Link to="/terms" className="hover:text-blue-400 transition-all-300">
-                    Termeni
+                    {t('footer.info.terms')}
                   </Link>
                 </li>
               </ul>
             </div>
 
             <div>
-              <h3 className="text-lg font-semibold mb-4">Contact</h3>
+              <h3 className="text-lg font-semibold mb-4">{t('footer.contact.title')}</h3>
               <ul className="space-y-2">
                 <li>
                   <Link to="/support" className="hover:text-blue-400 transition-all-300">
-                    Suport
+                    {t('footer.contact.support')}
                   </Link>
                 </li>
                 <li>
                   <Link to="/contact-us" className="hover:text-blue-400 transition-all-300">
-                    Contactează-ne
+                    {t('footer.contact.contact_us')}
                   </Link>
                 </li>
                 <li>
                   <Link to="/partners" className="hover:text-blue-400 transition-all-300">
-                    Parteneri
+                    {t('footer.contact.partners')}
                   </Link>
                 </li>
               </ul>
             </div>
           </div>
           <div className="mt-8 pt-8 border-t border-gray-700 text-center">
-            <p>&copy; {new Date().getFullYear()} GoMoldova. All rights reserved.</p>
+            <p>{t('footer.copyright')}</p>
           </div>
         </div>
       </footer>
@@ -395,6 +386,16 @@ function App() {
   const [profile, setProfile] = useState<any>(null);
   const { user, setUser } = useAuthStore();
   const { i18n } = useTranslation();
+
+  useEffect(() => {
+    // Initialize i18n with the stored language or default to 'ro'
+    const storedLang = localStorage.getItem('i18nextLng');
+    if (storedLang) {
+      i18n.changeLanguage(storedLang);
+    } else {
+      i18n.changeLanguage('ro');
+    }
+  }, [i18n]);
 
   useEffect(() => {
     // Check for existing session
@@ -581,7 +582,6 @@ function App() {
       element: <Layout />,
       children: [
         { index: true, element: <HomePage /> },
-        { path: 'login', element: <TestLogin /> },
         { path: 'trips', element: <TripsListing /> },
         { path: 'trips/my', element: <Navigate to="/my-trips" replace /> },
         { path: 'my-trips', element: <MyTrips /> },
@@ -601,6 +601,7 @@ function App() {
         { path: 'register/birthyear', element: <RegisterBirthYear /> },
         { path: 'register/gender', element: <RegisterGender /> },
         { path: 'register/password', element: <Password /> },
+        { path: 'register/success', element: <Success /> },
         { path: 'phone/fill', element: <PhoneFill /> },
         { path: 'offer-seats/departure', element: <DeparturePage /> },
         { path: 'offer-seats/departure/precise', element: <PreciseDeparturePage /> },
@@ -659,6 +660,8 @@ function App() {
         { path: 'reset-password/confirm', element: <ResetPasswordConfirm /> },
         { path: 'update-password', element: <UpdatePassword /> },
         { path: 'auth/confirm', element: <Confirm /> },
+        { path: 'login', element: <Login /> },
+        { path: '/auth/callback', element: <Callback /> },
       ],
     },
   ], {
@@ -672,20 +675,15 @@ function App() {
   });
 
   return (
-    <AppContext.Provider value={contextValue}>
+    <AuthProvider>
       <NotificationsProvider>
-      <AvatarProvider>
-          <DebugProvider>
-            <RouterProvider 
-              router={router}
-              future={{
-                v7_startTransition: true
-              }}
-            />
-          </DebugProvider>
+        <AvatarProvider>
+          <AppContext.Provider value={contextValue}>
+            <RouterProvider router={router} />
+          </AppContext.Provider>
         </AvatarProvider>
-        </NotificationsProvider>
-    </AppContext.Provider>
+      </NotificationsProvider>
+    </AuthProvider>
   );
 }
 

@@ -10,6 +10,7 @@ import { AuthModal } from '../components/AuthModal';
 import { UserProfileModal } from '../components/UserProfileModal';
 import { GoogleMap, DirectionsRenderer, Marker } from '@react-google-maps/api';
 import { useGoogleMaps, defaultMapCenter, defaultMapOptions } from '../lib/maps.tsx';
+import { useTranslation } from 'react-i18next';
 
 interface TripDetailsProps {
   onOpenChat: (userId: string) => void;
@@ -26,6 +27,7 @@ export function TripDetails({ onOpenChat }: TripDetailsProps) {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { user } = useAuthStore();
+  const { t } = useTranslation();
   const [trip, setTrip] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isBooking, setIsBooking] = useState(false);
@@ -116,7 +118,7 @@ export function TripDetails({ onOpenChat }: TripDetailsProps) {
       }
     } catch (error) {
       console.error('Error fetching trip:', error);
-      toast.error('Nu s-au putut încărca detaliile călătoriei');
+      toast.error(t('errors.loading'));
     } finally {
       setIsLoading(false);
     }
@@ -144,7 +146,7 @@ export function TripDetails({ onOpenChat }: TripDetailsProps) {
       setMapError(null);
     } catch (error) {
       console.error('Error calculating route:', error);
-      setMapError('Nu s-a putut calcula ruta. Se afișează o hartă statică.');
+      setMapError(t('trips.details.mapError'));
     }
   };
 
@@ -160,12 +162,12 @@ export function TripDetails({ onOpenChat }: TripDetailsProps) {
     }
 
     if (user.id === trip.driver_id) {
-      toast.error('Nu puteți rezerva propria călătorie');
+      toast.error(t('trips.details.booking.cantBookOwn'));
       return;
     }
 
     if (availableSeats < 1) {
-      toast.error('Nu mai sunt locuri disponibile pentru această călătorie');
+      toast.error(t('trips.details.booking.noSeats'));
       return;
     }
 
@@ -181,7 +183,7 @@ export function TripDetails({ onOpenChat }: TripDetailsProps) {
         .join(' ');
     } catch (error) {
       console.error('Error formatting date:', error);
-      return 'Data indisponibilă';
+      return t('trips.details.dateUnavailable');
     }
   };
 
@@ -203,7 +205,7 @@ export function TripDetails({ onOpenChat }: TripDetailsProps) {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <AlertCircle className="h-12 w-12 text-red-500 mx-auto" />
-          <p className="mt-4 text-gray-600">Călătoria nu a fost găsită</p>
+          <p className="mt-4 text-gray-600">{t('trips.details.notFound')}</p>
         </div>
       </div>
     );
@@ -256,7 +258,7 @@ export function TripDetails({ onOpenChat }: TripDetailsProps) {
                 <p className="text-2xl font-bold text-blue-600">
                   {trip.price} <span className="text-base font-normal">MDL</span>
                 </p>
-                <p className="text-sm text-blue-600/80">per loc</p>
+                <p className="text-sm text-blue-600/80">{t('trips.details.price.perSeat')}</p>
               </div>
             </div>
           </div>
@@ -274,7 +276,7 @@ export function TripDetails({ onOpenChat }: TripDetailsProps) {
                     </span>
                   </div>
                   <div className="text-sm text-gray-500">
-                    Cel mai rapid traseu
+                    {t('trips.details.route.fastestRoute')}
                   </div>
                 </div>
 
@@ -375,7 +377,7 @@ export function TripDetails({ onOpenChat }: TripDetailsProps) {
           {/* Driver Info */}
           <div className="p-6 border-b border-gray-100">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">
-              {trip.company ? 'Compania de transport' : 'Șoferul'}
+              {trip.company ? t('trips.details.company.title') : t('trips.details.driver.title')}
             </h3>
             
             {trip.company ? (
@@ -404,7 +406,7 @@ export function TripDetails({ onOpenChat }: TripDetailsProps) {
                   {trip.driver.verification_status === 'verified' && (
                     <div className="flex items-center text-green-600 text-sm">
                       <Check className="h-4 w-4 mr-1" />
-                      <span>Verificat</span>
+                      <span>{t('trips.details.driver.verified')}</span>
                     </div>
                   )}
                   <button
@@ -412,7 +414,7 @@ export function TripDetails({ onOpenChat }: TripDetailsProps) {
                     className="mt-2 inline-flex items-center text-sm text-blue-600 hover:text-blue-700"
                   >
                     <MessageCircle className="h-4 w-4 mr-1" />
-                    <span>Trimite mesaj</span>
+                    <span>{t('trips.details.driver.sendMessage')}</span>
                   </button>
                 </div>
               </div>
@@ -424,7 +426,7 @@ export function TripDetails({ onOpenChat }: TripDetailsProps) {
             <div className="flex items-center px-4 py-2 bg-green-50 rounded-lg">
               <Users className="h-5 w-5 text-green-600 mr-2" />
               <span className="text-base font-medium text-green-700">
-                {availableSeats} {availableSeats === 1 ? 'loc disponibil' : 'locuri disponibile'}
+                {availableSeats} {availableSeats === 1 ? t('trips.details.seats.available', { count: availableSeats }) : t('trips.details.seats.availablePlural', { count: availableSeats })}
               </span>
             </div>
           </div>
@@ -446,19 +448,19 @@ export function TripDetails({ onOpenChat }: TripDetailsProps) {
             <div className="grid grid-cols-2 gap-4">
               <div className="flex items-center text-gray-600">
                 <Package className="h-5 w-5 mr-2" />
-                <span className="text-sm">Bagaj mediu permis</span>
+                <span className="text-sm">{t('trips.details.amenities.baggage')}</span>
               </div>
               <div className="flex items-center text-gray-600">
                 <MessageCircle className="h-5 w-5 mr-2" />
-                <span className="text-sm">Răspunde în ~2 ore</span>
+                <span className="text-sm">{t('trips.details.amenities.responseTime')}</span>
               </div>
-              <div className="flex items-center text-gray-600" title="Fumatul interzis">
+              <div className="flex items-center text-gray-600" title={t('trips.details.amenities.smoking')}>
                 <Cigarette className="h-5 w-5 mr-2" />
-                <span className="text-sm">Fumatul interzis</span>
+                <span className="text-sm">{t('trips.details.amenities.smoking')}</span>
               </div>
-              <div className="flex items-center text-gray-600" title="Muzică permisă">
+              <div className="flex items-center text-gray-600" title={t('trips.details.amenities.music')}>
                 <Music className="h-5 w-5 mr-2" />
-                <span className="text-sm">Muzică permisă</span>
+                <span className="text-sm">{t('trips.details.amenities.music')}</span>
               </div>
             </div>
 
@@ -466,7 +468,7 @@ export function TripDetails({ onOpenChat }: TripDetailsProps) {
             <div className="mt-8 flex flex-col gap-2">
               {availableSeats < 1 ? (
                 <div className="text-center text-red-600 text-sm mb-2">
-                  Nu mai sunt locuri disponibile pentru această călătorie
+                  {t('trips.details.booking.noSeats')}
                 </div>
               ) : null}
               <button
@@ -488,27 +490,27 @@ export function TripDetails({ onOpenChat }: TripDetailsProps) {
                 {isBooking ? (
                   <>
                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                    Se procesează...
+                    {t('trips.details.booking.processing')}
                   </>
                 ) : hasUserBooked ? (
                   <>
                     <Check className="h-5 w-5" />
-                    Vezi rezervarea
+                    {t('trips.details.booking.viewBooking')}
                   </>
                 ) : user?.id === trip.driver_id ? (
                   <>
                     <Car className="h-5 w-5" />
-                    Călătoria ta
+                    {t('trips.details.booking.yourTrip')}
                   </>
                 ) : availableSeats < 1 ? (
                   <>
                     <AlertCircle className="h-5 w-5" />
-                    Nu sunt locuri disponibile
+                    {t('trips.details.booking.noSeats')}
                   </>
                 ) : (
                   <>
                     <ArrowRight className="h-5 w-5" />
-                    Solicită rezervare
+                    {t('trips.details.booking.bookNow')}
                   </>
                 )}
               </button>

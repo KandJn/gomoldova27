@@ -115,34 +115,19 @@ export const AdminBusCompanies: React.FC = () => {
     try {
       console.log('Sending email to:', to);
       
-      const response = await fetch('/.netlify/functions/send-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ to, subject, html }),
+      const { data, error } = await supabase.auth.resetPasswordForEmail(to, {
+        redirectTo: `${window.location.origin}/bus-company/set-password`,
+        data: {
+          subject,
+          html
+        }
       });
-      
-      const responseText = await response.text();
-      let data;
-      
-      try {
-        data = JSON.parse(responseText);
-      } catch (parseError) {
-        console.error('Error parsing response:', responseText);
-        return { 
-          data: null, 
-          error: new Error(`Failed to parse response: ${responseText}`) 
-        };
+
+      if (error) {
+        console.error('Error sending email:', error);
+        return { data: null, error };
       }
-      
-      console.log('Email response status:', response.status);
-      
-      if (!response.ok) {
-        console.error('Email error details:', data);
-        throw new Error(data.error || `Failed to send email: ${response.status}`);
-      }
-      
+
       return { data, error: null };
     } catch (error: any) {
       console.error('Email sending error:', error);
@@ -175,19 +160,33 @@ export const AdminBusCompanies: React.FC = () => {
         // Send email with Netlify function
         const { data: emailData, error: emailError } = await sendEmail(
           approveModal.company.email,
-          'Bus Company Registration Approved',
+          'Set Your Bus Company Account Password',
           `
-            <h1>Registration Approved!</h1>
-            <p>Dear ${approveModal.company.contact_person_name || approveModal.company.company_name},</p>
-            <p>We are pleased to inform you that your bus company registration has been approved.</p>
-            <p>Please follow the link below to set your password and access your bus company dashboard:</p>
-            <p>
-              <a href="${window.location.origin}/bus-company/set-password?code=${approvalCode}" style="padding: 10px 15px; background-color: #4F46E5; color: white; text-decoration: none; border-radius: 5px;">
-                Set Password
-              </a>
-            </p>
-            <p>This link will expire in 7 days.</p>
-            <p>Thank you for joining our platform!</p>
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+              <div style="text-align: center; margin-bottom: 30px;">
+                <h1 style="color: #4F46E5; margin-bottom: 10px;">Welcome to GoMoldova!</h1>
+              </div>
+              <div style="margin-bottom: 30px;">
+                <p>Dear ${approveModal.company.contact_person_name || approveModal.company.company_name},</p>
+                <p>Your bus company registration has been approved. To access your account, please set your password by clicking the button below:</p>
+                
+                <div style="text-align: center; margin: 20px 0;">
+                  <a href="${window.location.origin}/bus-company/set-password?code=${approvalCode}" 
+                     style="display: inline-block; padding: 12px 24px; background-color: #4F46E5; color: white; text-decoration: none; border-radius: 6px;">
+                    Set Password
+                  </a>
+                </div>
+
+                <div style="background-color: #FEF3C7; border-left: 4px solid #F59E0B; padding: 15px; margin: 20px 0;">
+                  <p><strong>Note:</strong> This link will expire in 24 hours. If you don't see the email in your inbox, please check your spam folder.</p>
+                </div>
+
+                <p>Thank you for joining our platform!</p>
+              </div>
+              <div style="text-align: center; color: #666; font-size: 14px; margin-top: 30px;">
+                <p>This is an automated message, please do not reply to this email.</p>
+              </div>
+            </div>
           `
         );
 
@@ -198,16 +197,14 @@ export const AdminBusCompanies: React.FC = () => {
           toast.success(t('Company approved and email sent successfully'));
         }
       } catch (emailSendError) {
-        console.error('Email sending failed:', emailSendError);
+        console.error('Error sending email:', emailSendError);
         toast.error(t('Error sending approval email, but company was approved. Please try resending the email later.'));
       }
-      
-      fetchCompanies();
-      setApproveModal({ isOpen: false, company: null, sendingEmail: false });
     } catch (error) {
       console.error('Error approving company:', error);
       toast.error(t('Error approving company'));
-      setApproveModal(prev => ({ ...prev, sendingEmail: false }));
+    } finally {
+      setApproveModal(prev => ({ ...prev, isOpen: false, sendingEmail: false }));
     }
   };
 

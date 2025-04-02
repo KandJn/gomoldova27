@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { ArrowUpDown, Car, Bus, Clock, Users, Star, Cigarette, Music, Dog } from 'lucide-react';
 
 interface Filters {
@@ -22,6 +23,8 @@ interface TripFiltersProps {
 }
 
 export function TripFilters({ filters, onChange, onReset }: TripFiltersProps) {
+  const { t } = useTranslation();
+
   const handlePriceChange = (min: number, max: number) => {
     onChange({
       ...filters,
@@ -77,21 +80,21 @@ export function TripFilters({ filters, onChange, onReset }: TripFiltersProps) {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-medium text-gray-900">Filtre</h3>
+        <h3 className="text-lg font-medium text-gray-900">{t('trips.filters.title')}</h3>
         <button
           type="button"
           onClick={onReset}
           className="text-sm text-blue-600 hover:text-blue-700 flex items-center"
         >
           <ArrowUpDown className="h-4 w-4 mr-1" />
-          Resetează
+          {t('trips.filters.reset')}
         </button>
       </div>
       
       <div className="space-y-4">
         {/* Vehicle Type */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Tip vehicul</label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">{t('trips.filters.vehicleType')}</label>
           <div className="flex flex-wrap gap-2">
             <button
               onClick={() => handleVehicleTypeChange('all')}
@@ -101,7 +104,7 @@ export function TripFilters({ filters, onChange, onReset }: TripFiltersProps) {
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
-              <span>Toate</span>
+              <span>{t('trips.filters.vehicleTypes.all')}</span>
             </button>
             <button
               onClick={() => handleVehicleTypeChange('car')}
@@ -112,7 +115,7 @@ export function TripFilters({ filters, onChange, onReset }: TripFiltersProps) {
               }`}
             >
               <Car className="h-4 w-4 mr-1" />
-              <span>Mașină</span>
+              <span>{t('trips.filters.vehicleTypes.car')}</span>
             </button>
             <button
               onClick={() => handleVehicleTypeChange('bus')}
@@ -123,17 +126,17 @@ export function TripFilters({ filters, onChange, onReset }: TripFiltersProps) {
               }`}
             >
               <Bus className="h-4 w-4 mr-1" />
-              <span>Autobus</span>
+              <span>{t('trips.filters.vehicleTypes.bus')}</span>
             </button>
           </div>
         </div>
 
         {/* Price Range */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Preț (MDL)</label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">{t('trips.filters.priceRange.label')}</label>
           <div className="grid grid-cols-2 gap-2">
             <div>
-              <label htmlFor="price-min" className="sr-only">Preț minim</label>
+              <label htmlFor="price-min" className="sr-only">{t('trips.filters.priceRange.label')}</label>
               <input
                 type="number"
                 id="price-min"
@@ -141,13 +144,13 @@ export function TripFilters({ filters, onChange, onReset }: TripFiltersProps) {
                 value={filters.priceRange[0]}
                 onChange={(e) => handlePriceChange(parseInt(e.target.value) || 0, filters.priceRange[1])}
                 className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm py-1.5"
-                placeholder="Min"
+                placeholder={t('trips.filters.priceRange.min')}
                 min="0"
-                aria-label="Preț minim"
+                aria-label={t('trips.filters.priceRange.label')}
               />
             </div>
             <div>
-              <label htmlFor="price-max" className="sr-only">Preț maxim</label>
+              <label htmlFor="price-max" className="sr-only">{t('trips.filters.priceRange.label')}</label>
               <input
                 type="number"
                 id="price-max"
@@ -155,9 +158,9 @@ export function TripFilters({ filters, onChange, onReset }: TripFiltersProps) {
                 value={filters.priceRange[1]}
                 onChange={(e) => handlePriceChange(filters.priceRange[0], parseInt(e.target.value) || 1000)}
                 className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm py-1.5"
-                placeholder="Max"
+                placeholder={t('trips.filters.priceRange.max')}
                 min="0"
-                aria-label="Preț maxim"
+                aria-label={t('trips.filters.priceRange.label')}
               />
             </div>
           </div>
@@ -165,23 +168,23 @@ export function TripFilters({ filters, onChange, onReset }: TripFiltersProps) {
 
         {/* Departure Time */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Ora plecării</label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">{t('trips.filters.departureTime')}</label>
           <select
             value={filters.departureTime}
             onChange={(e) => handleDepartureTimeChange(e.target.value as Filters['departureTime'])}
             className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm py-1.5"
           >
-            <option value="all">Toate orele</option>
-            <option value="morning">Dimineața (5:00 - 12:00)</option>
-            <option value="afternoon">După-amiaza (12:00 - 17:00)</option>
-            <option value="evening">Seara (17:00 - 22:00)</option>
-            <option value="night">Noaptea (22:00 - 5:00)</option>
+            <option value="all">{t('trips.filters.departureTimes.all')}</option>
+            <option value="morning">{t('trips.filters.departureTimes.morning')}</option>
+            <option value="afternoon">{t('trips.filters.departureTimes.afternoon')}</option>
+            <option value="evening">{t('trips.filters.departureTimes.evening')}</option>
+            <option value="night">{t('trips.filters.departureTimes.night')}</option>
           </select>
         </div>
 
         {/* Minimum Seats */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Locuri minime</label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">{t('trips.filters.minSeats')}</label>
           <div className="relative">
             <Users className="absolute left-2.5 top-2 h-4 w-4 text-gray-400" />
             <select
@@ -189,21 +192,21 @@ export function TripFilters({ filters, onChange, onReset }: TripFiltersProps) {
               onChange={(e) => handleSeatsChange(parseInt(e.target.value))}
               className="block w-full pl-8 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm py-1.5"
             >
-              <option value={1}>1 loc</option>
-              <option value={2}>2 locuri</option>
-              <option value={3}>3 locuri</option>
-              <option value={4}>4 locuri</option>
-              <option value={5}>5 locuri</option>
-              <option value={6}>6 locuri</option>
-              <option value={7}>7 locuri</option>
-              <option value={8}>8 locuri</option>
+              <option value={1}>1 {t('trips.filters.minSeats')}</option>
+              <option value={2}>2 {t('trips.filters.minSeats')}</option>
+              <option value={3}>3 {t('trips.filters.minSeats')}</option>
+              <option value={4}>4 {t('trips.filters.minSeats')}</option>
+              <option value={5}>5 {t('trips.filters.minSeats')}</option>
+              <option value={6}>6 {t('trips.filters.minSeats')}</option>
+              <option value={7}>7 {t('trips.filters.minSeats')}</option>
+              <option value={8}>8 {t('trips.filters.minSeats')}</option>
             </select>
           </div>
         </div>
 
         {/* Driver Rating */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Rating minim șofer</label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">{t('trips.filters.minRating')}</label>
           <div className="relative">
             <Star className="absolute left-2.5 top-2 h-4 w-4 text-gray-400" />
             <select
@@ -211,16 +214,16 @@ export function TripFilters({ filters, onChange, onReset }: TripFiltersProps) {
               onChange={(e) => handleRatingChange(parseInt(e.target.value))}
               className="block w-full pl-8 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm py-1.5"
             >
-              <option value={0}>Toate ratingurile</option>
-              <option value={4}>4+ stele</option>
-              <option value={4.5}>4.5+ stele</option>
+              <option value={0}>{t('trips.filters.minRating')}</option>
+              <option value={4}>4+ {t('trips.filters.minRating')}</option>
+              <option value={4.5}>4.5+ {t('trips.filters.minRating')}</option>
             </select>
           </div>
         </div>
 
         {/* Trip Preferences */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Preferințe călătorie</label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">{t('trips.filters.preferences.label')}</label>
           <div className="space-y-2">
             <label className="flex items-center">
               <input
@@ -231,7 +234,7 @@ export function TripFilters({ filters, onChange, onReset }: TripFiltersProps) {
               />
               <span className="ml-2 text-sm text-gray-700 flex items-center">
                 <Cigarette className="h-4 w-4 mr-1" />
-                Fumat permis
+                {t('trips.filters.preferences.smoking')}
               </span>
             </label>
             <label className="flex items-center">
@@ -243,7 +246,7 @@ export function TripFilters({ filters, onChange, onReset }: TripFiltersProps) {
               />
               <span className="ml-2 text-sm text-gray-700 flex items-center">
                 <Music className="h-4 w-4 mr-1" />
-                Muzică permisă
+                {t('trips.filters.preferences.music')}
               </span>
             </label>
             <label className="flex items-center">
@@ -255,7 +258,7 @@ export function TripFilters({ filters, onChange, onReset }: TripFiltersProps) {
               />
               <span className="ml-2 text-sm text-gray-700 flex items-center">
                 <Dog className="h-4 w-4 mr-1" />
-                Animale de companie permise
+                {t('trips.filters.preferences.pets')}
               </span>
             </label>
           </div>
@@ -263,7 +266,7 @@ export function TripFilters({ filters, onChange, onReset }: TripFiltersProps) {
 
         {/* Sort By */}
         <div>
-          <label htmlFor="sort-by" className="block text-sm font-medium text-gray-700 mb-2">Sortare</label>
+          <label htmlFor="sort-by" className="block text-sm font-medium text-gray-700 mb-2">{t('trips.filters.sortBy')}</label>
           <select
             id="sort-by"
             name="sort-by"
@@ -271,12 +274,12 @@ export function TripFilters({ filters, onChange, onReset }: TripFiltersProps) {
             onChange={(e) => handleSortChange(e.target.value as Filters['sortBy'])}
             className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-sm py-1.5"
           >
-            <option value="date_asc">Data (crescător)</option>
-            <option value="date_desc">Data (descrescător)</option>
-            <option value="price_asc">Preț (crescător)</option>
-            <option value="price_desc">Preț (descrescător)</option>
-            <option value="seats_asc">Locuri (crescător)</option>
-            <option value="seats_desc">Locuri (descrescător)</option>
+            <option value="date_asc">{t('trips.filters.sortOptions.dateAsc')}</option>
+            <option value="date_desc">{t('trips.filters.sortOptions.dateDesc')}</option>
+            <option value="price_asc">{t('trips.filters.sortOptions.priceAsc')}</option>
+            <option value="price_desc">{t('trips.filters.sortOptions.priceDesc')}</option>
+            <option value="seats_asc">{t('trips.filters.sortOptions.seatsAsc')}</option>
+            <option value="seats_desc">{t('trips.filters.sortOptions.seatsDesc')}</option>
           </select>
         </div>
       </div>

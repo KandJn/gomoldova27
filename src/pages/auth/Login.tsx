@@ -1,16 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { supabase } from '../../lib/supabase';
 import toast from 'react-hot-toast';
 import { Button, Spinner, Label, TextInput } from 'flowbite-react';
+import { useAuthStore } from '../../lib/store';
 
 export function Login() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { user } = useAuthStore();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+
+  // Check if user is already authenticated and redirect to home
+  useEffect(() => {
+    if (user) {
+      navigate('/', { replace: true });
+    }
+  }, [user, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
